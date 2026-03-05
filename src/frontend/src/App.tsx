@@ -4,16 +4,33 @@ import { Input } from "@/components/ui/input";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Toaster } from "@/components/ui/sonner";
 import { Textarea } from "@/components/ui/textarea";
-import { ArrowRight, BookOpen, ChevronDown, Loader2 } from "lucide-react";
+import {
+  ArrowRight,
+  BookOpen,
+  ExternalLink,
+  FlaskConical,
+  GraduationCap,
+  Loader2,
+  Menu,
+  Microscope,
+  PenLine,
+  X,
+} from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useState } from "react";
-import { SiGoodreads, SiInstagram, SiX } from "react-icons/si";
-import { toast } from "sonner";
 import {
-  useGetBlogPosts,
-  useGetBooks,
-  useSubmitContact,
-} from "./hooks/useQueries";
+  SiGooglescholar,
+  SiInstagram,
+  SiLinkedin,
+  SiOrcid,
+  SiResearchgate,
+  SiSoundcloud,
+  SiSpotify,
+  SiX,
+  SiYoutube,
+} from "react-icons/si";
+import { toast } from "sonner";
+import { useGetBooks, useSubmitContact } from "./hooks/useQueries";
 
 // ─── Smooth scroll helper ──────────────────────────────────────
 function scrollTo(id: string) {
@@ -34,31 +51,32 @@ function Navbar() {
 
   const links = [
     { label: "About", target: "about" },
+    { label: "Research", target: "research" },
     { label: "Books", target: "books" },
-    { label: "Blog", target: "blog" },
     { label: "Contact", target: "contact" },
   ];
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "bg-background/95 backdrop-blur-md border-b border-border/60"
+          ? "bg-white/95 backdrop-blur-md shadow-sm border-b border-border/60"
           : "bg-transparent"
       }`}
     >
       <nav className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+        {/* Logo */}
         <button
           type="button"
           onClick={() => scrollTo("hero")}
-          className="font-display text-lg font-semibold tracking-wide text-foreground hover:text-gold transition-colors"
+          className="font-display text-lg font-semibold text-foreground hover:text-primary transition-colors"
           data-ocid="nav.link"
         >
           Dr. Ashfy
         </button>
 
         {/* Desktop nav */}
-        <ul className="hidden md:flex items-center gap-8">
+        <ul className="hidden md:flex items-center gap-7">
           {links.map((link) => (
             <li key={link.target}>
               <button
@@ -73,23 +91,25 @@ function Navbar() {
           ))}
         </ul>
 
+        {/* Subscribe CTA */}
+        <Button
+          size="sm"
+          onClick={() => scrollTo("contact")}
+          className="hidden md:flex bg-foreground text-background hover:bg-foreground/90 font-ui font-medium text-sm rounded-full px-5"
+          data-ocid="nav.primary_button"
+        >
+          Get in Touch
+        </Button>
+
         {/* Mobile hamburger */}
         <button
           type="button"
-          className="md:hidden flex flex-col gap-1.5 p-2"
+          className="md:hidden p-2 text-foreground"
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label="Toggle menu"
           data-ocid="nav.toggle"
         >
-          <span
-            className={`block w-5 h-px bg-foreground transition-all ${menuOpen ? "rotate-45 translate-y-2" : ""}`}
-          />
-          <span
-            className={`block w-5 h-px bg-foreground transition-all ${menuOpen ? "opacity-0" : ""}`}
-          />
-          <span
-            className={`block w-5 h-px bg-foreground transition-all ${menuOpen ? "-rotate-45 -translate-y-2" : ""}`}
-          />
+          {menuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
         </button>
       </nav>
 
@@ -100,10 +120,10 @@ function Navbar() {
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            className="md:hidden overflow-hidden bg-background/98 border-b border-border"
+            transition={{ duration: 0.25 }}
+            className="md:hidden overflow-hidden bg-white border-b border-border"
           >
-            <ul className="flex flex-col py-4 px-6 gap-4">
+            <ul className="flex flex-col py-4 px-6 gap-1">
               {links.map((link) => (
                 <li key={link.target}>
                   <button
@@ -112,13 +132,25 @@ function Navbar() {
                       scrollTo(link.target);
                       setMenuOpen(false);
                     }}
-                    className="nav-link text-sm"
+                    className="w-full text-left py-2.5 font-ui text-base font-medium text-foreground hover:text-primary transition-colors"
                     data-ocid="nav.link"
                   >
                     {link.label}
                   </button>
                 </li>
               ))}
+              <li className="pt-3 border-t border-border mt-2">
+                <Button
+                  onClick={() => {
+                    scrollTo("contact");
+                    setMenuOpen(false);
+                  }}
+                  className="w-full bg-foreground text-background hover:bg-foreground/90 rounded-full"
+                  data-ocid="nav.primary_button"
+                >
+                  Get in Touch
+                </Button>
+              </li>
             </ul>
           </motion.div>
         )}
@@ -127,474 +159,673 @@ function Navbar() {
   );
 }
 
-// ─── Hero ─────────────────────────────────────────────────────
+// ─── Hero Section ─────────────────────────────────────────────
 function HeroSection() {
+  const featuredIn = [
+    "Wayne State University",
+    "GUSTO Research Group",
+    "Detroit Science Community",
+    "Scientific Conferences",
+    "Inquiry Ink Series",
+  ];
+
   return (
     <section
       id="hero"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden"
+      className="hero-mesh pt-24 pb-16 md:pt-32 md:pb-24 overflow-hidden"
     >
-      {/* Background */}
-      <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{
-          backgroundImage:
-            "url('/assets/generated/hero-bg-texture.dim_1920x1080.jpg')",
-        }}
-      />
-      <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/50 to-background" />
-      <div className="absolute inset-0 bg-grain" />
+      <div className="max-w-6xl mx-auto px-6">
+        <div className="grid md:grid-cols-2 gap-12 md:gap-16 items-center">
+          {/* Left: text */}
+          <div>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+            >
+              <span className="inline-flex items-center gap-2 bg-primary/10 text-primary font-ui font-semibold text-sm px-4 py-1.5 rounded-full mb-6">
+                Hey Friends 👋
+              </span>
+            </motion.div>
 
-      {/* Radial glow behind name */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background:
-            "radial-gradient(ellipse 60% 40% at 50% 45%, oklch(0.75 0.12 75 / 0.07) 0%, transparent 70%)",
-        }}
-      />
+            <motion.h1
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.1 }}
+              className="font-display font-semibold text-foreground leading-tight mb-5"
+              style={{ fontSize: "clamp(2.25rem, 5vw, 3.5rem)" }}
+            >
+              I'm Dr. Ashfy.
+              <br />
+              <span className="text-primary">Educator, Researcher,</span>
+              <br />
+              and Author.
+            </motion.h1>
 
-      {/* Content */}
-      <div className="relative z-10 max-w-5xl mx-auto px-6 text-center">
-        {/* Ornamental rule above name */}
-        <motion.div
-          initial={{ scaleX: 0, opacity: 0 }}
-          animate={{ scaleX: 1, opacity: 1 }}
-          transition={{ duration: 1, delay: 0.1, ease: "easeOut" }}
-          className="flex items-center justify-center gap-5 mb-7"
-        >
-          <div className="h-px w-16 bg-gradient-to-r from-transparent to-primary/50" />
-          <p className="section-label" style={{ fontSize: "0.625rem" }}>
-            Author · Novelist · Storyteller
-          </p>
-          <div className="h-px w-16 bg-gradient-to-l from-transparent to-primary/50" />
-        </motion.div>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="font-body text-lg text-muted-foreground leading-relaxed mb-8 max-w-md"
+            >
+              A chemist and educator from Detroit who writes both fiction and
+              non-fiction — from robo-stories to research guides — and helps
+              students fall in love with science.
+            </motion.p>
 
-        <motion.h1
-          initial={{ opacity: 0, y: 32 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.1, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-          className="mb-8 select-none"
-          aria-label="Dr. Ashfy"
-        >
-          <span
-            className="hero-name-first block text-foreground"
-            style={{ fontSize: "clamp(4.5rem, 13vw, 10.5rem)" }}
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="flex flex-col sm:flex-row gap-3 mb-12"
+            >
+              <Button
+                size="lg"
+                onClick={() => scrollTo("books")}
+                className="bg-foreground text-background hover:bg-foreground/90 font-ui font-semibold rounded-full px-7 shadow-md"
+                data-ocid="hero.primary_button"
+              >
+                Explore My Books
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+              <Button
+                variant="outline"
+                size="lg"
+                onClick={() => scrollTo("about")}
+                className="border-border hover:border-primary/50 hover:bg-primary/5 font-ui font-semibold rounded-full px-7"
+                data-ocid="hero.secondary_button"
+              >
+                About Me
+              </Button>
+            </motion.div>
+
+            {/* As featured in */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.7, delay: 0.5 }}
+            >
+              <p className="font-ui text-xs text-muted-foreground/60 uppercase tracking-widest mb-3">
+                Associated With
+              </p>
+              <div className="flex flex-wrap gap-x-6 gap-y-2">
+                {featuredIn.map((name) => (
+                  <span
+                    key={name}
+                    className="font-ui text-sm text-muted-foreground/70 font-medium"
+                  >
+                    {name}
+                  </span>
+                ))}
+              </div>
+            </motion.div>
+          </div>
+
+          {/* Right: author photo */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.97 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="relative flex justify-center md:justify-end"
           >
-            Dr.
-          </span>
-          <span
-            className="hero-name-last block text-gold"
-            style={{ fontSize: "clamp(5rem, 15vw, 12rem)" }}
-          >
-            Ashfy
-          </span>
-        </motion.h1>
-
-        {/* Thin rule below name */}
-        <motion.div
-          initial={{ scaleX: 0, opacity: 0 }}
-          animate={{ scaleX: 1, opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.8 }}
-          className="w-12 h-px bg-primary/50 mx-auto mb-8"
-        />
-
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.9 }}
-          className="font-body text-lg md:text-xl text-muted-foreground max-w-lg mx-auto mb-10 leading-relaxed tracking-wide"
-          style={{ fontStyle: "italic" }}
-        >
-          Bestselling author of literary fiction and psychological thrillers
-          that linger long after the final page.
-        </motion.p>
-
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 1.05 }}
-          className="flex flex-col sm:flex-row gap-5 justify-center items-center"
-        >
-          <Button
-            size="lg"
-            onClick={() => scrollTo("books")}
-            className="bg-primary text-primary-foreground hover:bg-primary/90 font-ui font-medium tracking-widest text-xs uppercase px-10 py-6 shadow-gold-md transition-all hover:-translate-y-0.5 hover:shadow-gold-md"
-            data-ocid="hero.primary_button"
-          >
-            Explore My Books
-            <ArrowRight className="ml-2 h-3.5 w-3.5" />
-          </Button>
-          <button
-            type="button"
-            onClick={() => scrollTo("about")}
-            className="font-ui text-xs uppercase tracking-widest text-muted-foreground hover:text-gold transition-colors flex items-center gap-2 group"
-          >
-            About Dr. Ashfy
-            <span className="block h-px w-5 bg-current transition-all group-hover:w-8" />
-          </button>
-        </motion.div>
+            {/* Decorative shape behind photo */}
+            <div
+              className="absolute inset-0 rounded-3xl"
+              style={{
+                background:
+                  "radial-gradient(ellipse at 60% 40%, oklch(0.65 0.14 75 / 0.15) 0%, transparent 65%)",
+                transform: "scale(1.1)",
+              }}
+            />
+            <div className="relative z-10 w-full max-w-sm">
+              {/* Decorative dots */}
+              <div
+                className="absolute -top-4 -right-4 w-24 h-24 opacity-30"
+                style={{
+                  backgroundImage:
+                    "radial-gradient(circle, oklch(0.65 0.14 75) 1.5px, transparent 1.5px)",
+                  backgroundSize: "12px 12px",
+                }}
+                aria-hidden="true"
+              />
+              <div className="relative overflow-hidden rounded-2xl shadow-card-hover">
+                <img
+                  src="/assets/uploads/Ashfy-Photo-1.jpg"
+                  alt="Dr. Mohammad Shah Hafez Kabir (Ashfy)"
+                  className="w-full aspect-[4/5] object-cover"
+                />
+                {/* Subtle overlay at bottom */}
+                <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-foreground/10 to-transparent pointer-events-none" />
+              </div>
+              {/* Floating badge */}
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.8, duration: 0.5 }}
+                className="absolute -bottom-4 -left-4 bg-white border border-border rounded-xl px-4 py-3 shadow-card-light"
+              >
+                <p className="font-ui text-xs text-muted-foreground mb-0.5">
+                  Award Winning
+                </p>
+                <p className="font-ui text-sm font-semibold text-foreground">
+                  Research Excellence 🏆
+                </p>
+              </motion.div>
+            </div>
+          </motion.div>
+        </div>
       </div>
-
-      {/* Scroll indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.5 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
-      >
-        <motion.div
-          animate={{ y: [0, 8, 0] }}
-          transition={{
-            repeat: Number.POSITIVE_INFINITY,
-            duration: 2,
-            ease: "easeInOut",
-          }}
-        >
-          <ChevronDown className="h-5 w-5 text-muted-foreground/60" />
-        </motion.div>
-      </motion.div>
     </section>
   );
 }
 
-// ─── About ────────────────────────────────────────────────────
-function AboutSection() {
+// ─── Help Section ─────────────────────────────────────────────
+function HelpSection() {
+  const categories = [
+    {
+      icon: FlaskConical,
+      title: "Science Education",
+      desc: "Learn chemistry and scientific concepts explained clearly — for students, educators, and curious minds.",
+      color: "text-blue-500",
+      bg: "bg-blue-50",
+    },
+    {
+      icon: Microscope,
+      title: "Research",
+      desc: "Guidance for undergraduate students doing research via GUSTO A Research Group, founded in 2014.",
+      color: "text-green-600",
+      bg: "bg-green-50",
+    },
+    {
+      icon: PenLine,
+      title: "Fiction Writing",
+      desc: "Imaginative stories spanning robo-fiction, philosophical dialogues, and children's adventures.",
+      color: "text-purple-500",
+      bg: "bg-purple-50",
+    },
+    {
+      icon: GraduationCap,
+      title: "Non-Fiction Books",
+      desc: "Academic and educational writing on science, research methodology, and knowledge building.",
+      color: "text-amber-600",
+      bg: "bg-amber-50",
+    },
+  ];
+
   return (
-    <section id="about" className="py-28 md:py-40">
+    <section className="py-20 md:py-28 bg-muted/40">
       <div className="max-w-6xl mx-auto px-6">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.8 }}
-          className="grid md:grid-cols-2 gap-16 items-center"
+          transition={{ duration: 0.6 }}
+          className="text-center mb-12"
         >
-          {/* Photo */}
-          <div className="relative">
-            <div className="relative overflow-hidden">
-              <img
-                src="/assets/generated/author-portrait.dim_600x750.jpg"
-                alt="Dr. Ashfy"
-                className="w-full max-w-sm mx-auto md:mx-0 object-cover aspect-[4/5] grayscale hover:grayscale-0 transition-all duration-700"
-                style={{ filter: "contrast(1.05) brightness(0.92)" }}
-              />
-              {/* Decorative frame */}
-              <div className="absolute inset-0 border border-primary/20 translate-x-3 translate-y-3 pointer-events-none" />
-            </div>
-            {/* Floating award badge */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.4, duration: 0.5 }}
-              className="absolute -bottom-4 -right-0 md:right-8 bg-card border border-border/80 px-5 py-3 shadow-card-dark"
-            >
-              <p className="section-label text-xs mb-0.5">Award Winning</p>
-              <p className="font-display text-sm font-semibold">
-                6 Novels · 3 Awards
-              </p>
-            </motion.div>
-          </div>
+          <p className="section-label mb-3">What I Do</p>
+          <h2
+            className="font-display font-semibold text-foreground leading-tight"
+            style={{ fontSize: "clamp(1.75rem, 4vw, 2.75rem)" }}
+          >
+            How Can I Help You?
+          </h2>
+        </motion.div>
 
-          {/* Bio */}
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          {categories.map((cat, i) => (
+            <motion.div
+              key={cat.title}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ duration: 0.5, delay: i * 0.08 }}
+              className="help-card group"
+            >
+              <div
+                className={`w-10 h-10 rounded-xl ${cat.bg} flex items-center justify-center mb-4`}
+              >
+                <cat.icon className={`h-5 w-5 ${cat.color}`} />
+              </div>
+              <h3 className="font-ui font-semibold text-foreground text-base mb-2">
+                {cat.title}
+              </h3>
+              <p className="font-body text-sm text-muted-foreground leading-relaxed mb-4">
+                {cat.desc}
+              </p>
+              <button
+                type="button"
+                onClick={() => scrollTo("books")}
+                className="inline-flex items-center gap-1 font-ui text-sm font-semibold text-primary hover:gap-2 transition-all"
+                data-ocid="help.primary_button"
+              >
+                Get started <ArrowRight className="h-3.5 w-3.5" />
+              </button>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ─── About Section ────────────────────────────────────────────
+function AboutSection() {
+  const stats = [
+    { value: "2014", label: "GUSTO Founded" },
+    { value: "PhD", label: "Wayne State" },
+    { value: "7+", label: "Books Published" },
+    { value: "Detroit", label: "Educator" },
+  ];
+
+  return (
+    <section id="about" className="py-20 md:py-32">
+      <div className="max-w-6xl mx-auto px-6">
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.7 }}
+          className="grid md:grid-cols-2 gap-14 items-start"
+        >
+          {/* Left: bio text */}
           <div>
             <p className="section-label mb-4">About the Author</p>
             <h2
-              className="font-display font-light leading-tight mb-8"
-              style={
-                {
-                  fontSize: "clamp(2.25rem, 5vw, 3.5rem)",
-                  fontOpticalSizing: "auto",
-                } as React.CSSProperties
-              }
+              className="font-display font-semibold text-foreground leading-tight mb-7"
+              style={{ fontSize: "clamp(1.75rem, 4vw, 2.75rem)" }}
             >
-              Stories that
+              Educator, Researcher
               <br />
-              <span className="text-gold italic">hold you breathless</span>
+              <span className="text-primary">&amp; Author</span>
             </h2>
-            <div className="space-y-5 font-body text-lg text-muted-foreground leading-relaxed">
+            <div className="space-y-4 font-body text-base text-muted-foreground leading-relaxed">
               <p>
-                Dr. Ashfy grew up between the fog-draped moors of Yorkshire and
-                the neon-lit streets of Manhattan, and both worlds haunt her
-                fiction. She is the author of six critically acclaimed novels,
-                most recently{" "}
-                <em className="text-foreground">The Narrowing Dark</em>, a
-                psychological thriller named one of The Guardian's Best Books of
-                the Year.
+                Dr. Mohammad Shah Hafez Kabir (Ashfy) is an educator currently
+                teaching in Detroit. He holds a PhD in Physical and Analytical
+                Chemistry from Wayne State University and is passionate about
+                science education, research, and creative writing.
               </p>
               <p>
-                Her work has been translated into twenty-three languages and
-                adapted for two acclaimed television series. She has received
-                the Hammett Prize, the International Thriller Writers Award, and
-                was longlisted for the Booker Prize in 2022.
+                In addition to his academic career, he writes both fiction and
+                non-fiction books covering topics such as science, education,
+                and imaginative storytelling. He has made numerous YouTube
+                videos to explain scientific topics and methods.
               </p>
               <p>
-                When she is not writing, Dr. Ashfy teaches a masterclass in
-                narrative tension at Columbia University and mentors emerging
-                voices through the PEN America fellowship.
+                In 2014, he founded the{" "}
+                <span className="text-foreground font-semibold">
+                  GUSTO A Research Group
+                </span>
+                , a non-profit organization dedicated to helping young
+                undergraduate students conduct research in their fields.
+              </p>
+              <p>
+                Kabir has received many awards for research excellence at
+                several scientific conferences.
               </p>
             </div>
 
-            {/* Divider ornament */}
-            <div className="flex items-center gap-4 mt-10">
-              <div className="h-px flex-1 bg-border" />
-              <BookOpen className="h-4 w-4 text-primary" />
-              <div className="h-px flex-1 bg-border" />
-            </div>
-
-            <div className="grid grid-cols-3 gap-6 mt-8">
-              {[
-                { value: "6", label: "Novels" },
-                { value: "23", label: "Languages" },
-                { value: "2M+", label: "Readers" },
-              ].map(({ value, label }) => (
+            {/* Stats row */}
+            <div className="grid grid-cols-4 gap-4 mt-10 pt-8 border-t border-border">
+              {stats.map(({ value, label }) => (
                 <div key={label} className="text-center">
-                  <p className="font-display text-3xl font-light text-gold">
+                  <p className="font-display text-2xl font-semibold text-primary leading-tight">
                     {value}
                   </p>
-                  <p className="font-ui text-xs uppercase tracking-widest text-muted-foreground mt-1">
+                  <p className="font-ui text-xs text-muted-foreground mt-1 leading-tight">
                     {label}
                   </p>
                 </div>
               ))}
             </div>
           </div>
+
+          {/* Right: photo */}
+          <div className="relative flex justify-center md:justify-end">
+            <div className="relative w-full max-w-md">
+              {/* Background blob */}
+              <div
+                className="absolute -inset-6 rounded-3xl opacity-40"
+                style={{
+                  background:
+                    "radial-gradient(ellipse at 50% 50%, oklch(0.65 0.14 75 / 0.12) 0%, transparent 70%)",
+                }}
+                aria-hidden="true"
+              />
+              <div className="relative overflow-hidden rounded-2xl shadow-md">
+                <img
+                  src="/assets/uploads/Ashfy-Photo-1.jpg"
+                  alt="Dr. Ashfy"
+                  className="w-full object-cover"
+                  style={{ aspectRatio: "4/5" }}
+                />
+              </div>
+              {/* Floating award */}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.85 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.4, duration: 0.5 }}
+                className="absolute -bottom-5 -left-5 bg-white border border-border rounded-xl px-4 py-3 shadow-card-light"
+              >
+                <div className="flex items-center gap-2.5">
+                  <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center">
+                    <BookOpen className="h-4 w-4 text-primary" />
+                  </div>
+                  <div>
+                    <p className="font-ui text-xs text-muted-foreground">
+                      Award Winning
+                    </p>
+                    <p className="font-ui text-sm font-semibold text-foreground">
+                      Research Excellence
+                    </p>
+                  </div>
+                </div>
+              </motion.div>
+            </div>
+          </div>
         </motion.div>
       </div>
     </section>
   );
 }
 
-// ─── Book Cover Placeholder ────────────────────────────────────
-const COVER_DESIGNS = [
-  {
-    bg: "linear-gradient(160deg, oklch(0.24 0.06 28) 0%, oklch(0.14 0.04 20) 100%)",
-    accent: "oklch(0.78 0.14 75)",
-    pattern: "lines",
-  },
-  {
-    bg: "linear-gradient(135deg, oklch(0.16 0.05 210) 0%, oklch(0.10 0.03 220) 100%)",
-    accent: "oklch(0.72 0.10 72)",
-    pattern: "circle",
-  },
-  {
-    bg: "linear-gradient(170deg, oklch(0.18 0.06 290) 0%, oklch(0.11 0.04 280) 100%)",
-    accent: "oklch(0.80 0.13 78)",
-    pattern: "lines",
-  },
-  {
-    bg: "linear-gradient(145deg, oklch(0.14 0.04 140) 0%, oklch(0.10 0.02 150) 100%)",
-    accent: "oklch(0.74 0.11 76)",
-    pattern: "circle",
-  },
-  {
-    bg: "linear-gradient(155deg, oklch(0.22 0.07 12) 0%, oklch(0.13 0.05 8) 100%)",
-    accent: "oklch(0.80 0.14 75)",
-    pattern: "lines",
-  },
-  {
-    bg: "linear-gradient(140deg, oklch(0.16 0.04 245) 0%, oklch(0.10 0.02 250) 100%)",
-    accent: "oklch(0.73 0.10 73)",
-    pattern: "circle",
-  },
-];
-
-function BookCoverPlaceholder({
-  title,
-  index,
-}: { title: string; index: number }) {
-  const design = COVER_DESIGNS[index % COVER_DESIGNS.length];
-  const words = title.split(" ");
-  // Split title: first word(s) lighter, rest heavier — for visual variation
-  const mid = Math.max(1, Math.ceil(words.length / 2));
-  const line1 = words.slice(0, mid).join(" ");
-  const line2 = words.slice(mid).join(" ");
+// ─── Research Profiles Section ────────────────────────────────
+function ResearchSection() {
+  const profiles = [
+    {
+      name: "GUSTO A Research Group",
+      url: "https://youtube.com/channel/UCmPk5xXlzpamJefZa33YG8Q/featured",
+      icon: SiYoutube,
+      color: "text-red-500",
+      bg: "bg-red-50",
+      desc: "Non-profit research organization helping undergrad students conduct research",
+    },
+    {
+      name: "Google Scholar",
+      url: "https://scholar.google.com/citations?hl=en&user=YO6y-jYAAAAJ&scilu=15000173386196379264:0&scisig=AMstHGQAAAAAWHZWvxHP4uC2nkF0PViX4Rr_OgLDWX4m&gmla=AJsN-F7wWyWbQ9vXmgVtIkn9S7ZnhekS3mikqhBrgKZkzt9LeBbsC-jxt16ThhModGr3d_myRa_SFrX3B2siDs89mxYm1_Jz9cd6iePvo8ahMuapSyyYkUw&sciund=1619457198548083007",
+      icon: SiGooglescholar,
+      color: "text-blue-600",
+      bg: "bg-blue-50",
+      desc: "Published research papers and citation metrics",
+    },
+    {
+      name: "ResearchGate",
+      url: "https://researchgate.net/profile/Mohammad_Kabir9",
+      icon: SiResearchgate,
+      color: "text-teal-600",
+      bg: "bg-teal-50",
+      desc: "Research profile, publications, and collaborations",
+    },
+    {
+      name: "PubMed",
+      url: "https://ncbi.nlm.nih.gov/pubmed/?term=Mohammad Shah Hafez Kabir",
+      icon: null,
+      color: "text-blue-700",
+      bg: "bg-blue-50",
+      desc: "Biomedical literature and research publications",
+    },
+    {
+      name: "Scopus",
+      url: "https://scopus.com/authid/detail.uri?authorId=56769012400",
+      icon: null,
+      color: "text-orange-600",
+      bg: "bg-orange-50",
+      desc: "Abstract and citation database profile",
+    },
+    {
+      name: "ORCID",
+      url: "https://orcid.org/0000-0003-4952-8730",
+      icon: SiOrcid,
+      color: "text-green-600",
+      bg: "bg-green-50",
+      desc: "Unique researcher identifier: 0000-0003-4952-8730",
+    },
+    {
+      name: "LinkedIn",
+      url: "https://linkedin.com/in/mohammad-shah-hafez-kabir-8b214888?trk=nav_responsive_tab_profile_pic",
+      icon: SiLinkedin,
+      color: "text-blue-700",
+      bg: "bg-blue-50",
+      desc: "Professional profile and academic network",
+    },
+    {
+      name: "Academia.edu",
+      url: "https://iiuc.academia.edu/MohammadShahHafezKabir",
+      icon: null,
+      color: "text-gray-700",
+      bg: "bg-gray-100",
+      desc: "Academic papers and research sharing platform",
+    },
+    {
+      name: "ResearcherID",
+      url: "https://researcherid.com/ProfileView.action?returnCode=ROUTER.Unauthorized&queryString=KG0UuZjN5WlQELVsM3UeW4OLAxPn6UbJ3X1vXsiMnZI%3D&SrcApp=CR&Init=Yes",
+      icon: null,
+      color: "text-purple-600",
+      bg: "bg-purple-50",
+      desc: "Web of Science researcher profile",
+    },
+    {
+      name: "Personal Website",
+      url: "https://mshkabir.myfreesites.net",
+      icon: null,
+      color: "text-indigo-600",
+      bg: "bg-indigo-50",
+      desc: "Personal academic website",
+    },
+    {
+      name: "MSHK Audio Books (আশফীর বই)",
+      url: "https://youtube.com/channel/UCo5u2oyH9GA5ynvAMNGc1Rw",
+      icon: SiYoutube,
+      color: "text-red-500",
+      bg: "bg-red-50",
+      desc: "Audio books and spoken word content in Bengali",
+    },
+    {
+      name: "Bookish Becomes Travelholic",
+      url: "https://youtube.com/@bookishbecomestravelholic",
+      icon: SiYoutube,
+      color: "text-red-500",
+      bg: "bg-red-50",
+      desc: "Travel and books YouTube channel",
+    },
+    {
+      name: "Hyperpolarized Brains",
+      url: "https://youtube.com/@hyperpolarizedbrains",
+      icon: SiYoutube,
+      color: "text-red-500",
+      bg: "bg-red-50",
+      desc: "Science and brain-focused YouTube channel",
+    },
+    {
+      name: "Soundcloud",
+      url: "https://soundcloud.com/user-203299441",
+      icon: SiSoundcloud,
+      color: "text-orange-500",
+      bg: "bg-orange-50",
+      desc: "Audio tracks and spoken content on Soundcloud",
+    },
+    {
+      name: "Spotify",
+      url: "https://open.spotify.com/show/0wYBdJ7RXpAZlcGoNjKrHq?si=f6430ba8dda742",
+      icon: SiSpotify,
+      color: "text-green-500",
+      bg: "bg-green-50",
+      desc: "Podcast and audio content on Spotify",
+    },
+  ];
 
   return (
-    <div
-      className="w-full aspect-[2/3] flex flex-col justify-between p-5 relative overflow-hidden"
-      style={{ background: design.bg }}
-    >
-      {/* Top author name band */}
-      <div>
-        <p
-          className="font-ui text-[0.6rem] uppercase tracking-[0.25em] font-medium mb-3"
-          style={{ color: design.accent, opacity: 0.8 }}
+    <section id="research" className="py-20 md:py-28 bg-muted/40">
+      <div className="max-w-6xl mx-auto px-6">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-12"
         >
-          Dr. Ashfy
-        </p>
-        <div
-          className="h-px w-full opacity-20"
-          style={{ background: design.accent }}
-        />
-      </div>
-
-      {/* Centre: decorative motif + title */}
-      <div className="flex-1 flex flex-col items-start justify-center py-4">
-        {design.pattern === "circle" ? (
-          <div
-            className="mb-4 w-10 h-10 rounded-full opacity-15 border"
-            style={{ borderColor: design.accent }}
-          />
-        ) : (
-          <div className="mb-4 space-y-1">
-            <div
-              className="h-px w-10 opacity-30"
-              style={{ background: design.accent }}
-            />
-            <div
-              className="h-px w-6 opacity-20"
-              style={{ background: design.accent }}
-            />
-          </div>
-        )}
-
-        <p
-          className="font-display font-light leading-[1.05] mb-0.5"
-          style={
-            {
-              color: "oklch(0.92 0.014 65)",
-              fontSize: line1.length > 8 ? "1.1rem" : "1.3rem",
-              fontOpticalSizing: "auto",
-            } as React.CSSProperties
-          }
-        >
-          {line1}
-        </p>
-        {line2 && (
-          <p
-            className="font-display font-semibold italic leading-tight"
-            style={
-              {
-                color: design.accent,
-                fontSize: line2.length > 8 ? "1rem" : "1.2rem",
-                fontOpticalSizing: "auto",
-              } as React.CSSProperties
-            }
+          <p className="section-label mb-3">Academic Presence</p>
+          <h2
+            className="font-display font-semibold text-foreground leading-tight"
+            style={{ fontSize: "clamp(1.75rem, 4vw, 2.75rem)" }}
           >
-            {line2}
+            Research Profiles &amp; Links
+          </h2>
+          <p className="font-body text-base text-muted-foreground mt-4 max-w-xl mx-auto">
+            Find Dr. Ashfy's published research, academic profiles, and content
+            across platforms.
           </p>
-        )}
+        </motion.div>
+
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {profiles.map((profile, i) => (
+            <motion.a
+              key={profile.name}
+              href={profile.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              data-ocid={`research.item.${i + 1}`}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ duration: 0.4, delay: (i % 3) * 0.07 }}
+              className="group flex items-start gap-4 bg-white border border-border rounded-xl p-5 hover:border-primary/40 hover:shadow-md transition-all duration-200"
+            >
+              <div
+                className={`w-10 h-10 rounded-xl ${profile.bg} flex items-center justify-center shrink-0 mt-0.5`}
+              >
+                {profile.icon ? (
+                  <profile.icon className={`h-5 w-5 ${profile.color}`} />
+                ) : (
+                  <ExternalLink className={`h-4 w-4 ${profile.color}`} />
+                )}
+              </div>
+              <div className="min-w-0 flex-1">
+                <div className="flex items-center gap-1.5 mb-1">
+                  <h3 className="font-ui text-sm font-semibold text-foreground group-hover:text-primary transition-colors truncate">
+                    {profile.name}
+                  </h3>
+                  <ExternalLink className="h-3 w-3 text-muted-foreground/40 shrink-0 group-hover:text-primary/60 transition-colors" />
+                </div>
+                <p className="font-body text-xs text-muted-foreground leading-relaxed line-clamp-2">
+                  {profile.desc}
+                </p>
+              </div>
+            </motion.a>
+          ))}
+        </div>
       </div>
-
-      {/* Bottom rule */}
-      <div>
-        <div
-          className="h-px w-full opacity-20 mb-2"
-          style={{ background: design.accent }}
-        />
-        <div
-          className="h-px w-1/2 opacity-10"
-          style={{ background: design.accent }}
-        />
-      </div>
-
-      {/* Grain texture */}
-      <div className="absolute inset-0 bg-grain opacity-60 pointer-events-none" />
-
-      {/* Left spine shadow */}
-      <div
-        className="absolute inset-y-0 left-0 w-3 pointer-events-none"
-        style={{
-          background:
-            "linear-gradient(to right, rgba(0,0,0,0.45), transparent)",
-        }}
-      />
-    </div>
+    </section>
   );
 }
 
-// ─── Books ────────────────────────────────────────────────────
+// ─── Books Section ────────────────────────────────────────────
 function BooksSection() {
   const { data: books, isLoading, isError } = useGetBooks();
 
-  // Sample books if backend returns nothing
   const sampleBooks = [
     {
       id: BigInt(1),
-      title: "The Narrowing Dark",
-      genre: "Psychological Thriller",
-      publishedYear: BigInt(2023),
+      title: "The Positronic Paradox",
+      genre: "Robo-Fiction Stories",
+      publishedYear: BigInt(2024),
       description:
-        "A forensic linguist is drawn into a deadly game when a serial killer begins leaving messages only she can decode—messages that seem to predict her own death.",
-      coverUrl: "",
+        "A captivating robo-fiction adventure that explores the boundary between machine intelligence and human consciousness, asking what it truly means to think and feel.",
+      coverUrl: "/assets/uploads/Mutinies-of-Binary-Cover-v3-01-1.jpg",
     },
     {
       id: BigInt(2),
-      title: "Everything That Burns",
-      genre: "Literary Fiction",
-      publishedYear: BigInt(2021),
+      title: "Is Science Completely Dependent on Research Papers?",
+      genre: "Non-Fiction / Science",
+      publishedYear: BigInt(2023),
       description:
-        "Two women, separated by a century, are bound together by a house that refuses to let its secrets die. A searing meditation on memory, grief, and survival.",
-      coverUrl: "",
+        "A thought-provoking examination of how scientific knowledge is built, communicated, and validated — and whether research papers are the only measure of scientific truth.",
+      coverUrl: "/assets/uploads/My-project-copy-1-5--2.jpg",
     },
     {
       id: BigInt(3),
-      title: "The Glass Meridian",
-      genre: "Thriller",
-      publishedYear: BigInt(2019),
+      title: "The Kid Scientists Build Their Own Lab",
+      genre: "Children's Fiction",
+      publishedYear: BigInt(2023),
       description:
-        "An architect discovers blueprints hidden in the walls of her renovation project that suggest the house was built to trap—not shelter—its inhabitants.",
-      coverUrl: "",
+        "A fun and inspiring story for young readers about a team of curious kids who band together to construct their very own science laboratory and make amazing discoveries.",
+      coverUrl: "/assets/uploads/Cover-v1-01-3.jpg",
     },
     {
       id: BigInt(4),
-      title: "Bitter Latitude",
-      genre: "Literary Fiction",
-      publishedYear: BigInt(2017),
+      title: "Andy's Journey Into the Realm of Research",
+      genre: "Inquiry Ink Series",
+      publishedYear: BigInt(2022),
       description:
-        "A retired detective returns to the northern town she fled as a teenager to investigate a drowning that everyone insists was accidental—but nothing in this town ever is.",
-      coverUrl: "",
+        "Book One of the Path to Wisdom: Inquiry Ink Series. Andy embarks on a transformative journey into the world of research, uncovering the joy and rigor of scientific inquiry.",
+      coverUrl: "/assets/uploads/The-real-cover-v2-Thin-4.jpg",
     },
     {
       id: BigInt(5),
-      title: "Cold Meridian",
-      genre: "Psychological Thriller",
-      publishedYear: BigInt(2015),
+      title: "A Comprehensive Guide to Conducting Full-Fledged Research Work",
+      genre: "Academic / Non-Fiction",
+      publishedYear: BigInt(2021),
       description:
-        "A translator working at a high-security diplomacy summit realizes she is being fed deliberately mistranslated intelligence—and someone will kill to keep it that way.",
-      coverUrl: "",
+        "An authoritative guide covering every stage of the research process — from formulating questions and reviewing literature to data analysis and publishing findings.",
+      coverUrl: "/assets/uploads/Cover-v2-01-5.jpg",
     },
     {
       id: BigInt(6),
-      title: "Where the Light Went",
-      genre: "Literary Fiction",
-      publishedYear: BigInt(2013),
+      title: "The Dialogues of Socrata and Plata",
+      genre: "Philosophical Fiction",
+      publishedYear: BigInt(2022),
       description:
-        "Dr. Ashfy's debut novel: a luminous, heartbreaking story about a woman who returns to her coastal hometown after her twin sister vanishes without a trace.",
-      coverUrl: "",
+        "Book One of the Socreta and Plata Series. Two philosophical companions meet at a quaint café and engage in rich, witty dialogues that challenge the reader's assumptions about truth, knowledge, and the good life.",
+      coverUrl:
+        "/assets/uploads/The-dialogues-of-socreta-and-plata-Cover-v7-01-6.jpg",
+    },
+    {
+      id: BigInt(7),
+      title: "Ghost Catcher Club",
+      genre: "Children's Stories",
+      publishedYear: BigInt(2023),
+      description:
+        "A spooky and exciting children's tale following a brave group of young friends who form the Ghost Catcher Club and set out to solve the mysterious haunting of an old mansion.",
+      coverUrl: "/assets/uploads/Main-Full-Cover-V2-01-7.jpg",
     },
   ];
 
   const displayBooks = books && books.length > 0 ? books : sampleBooks;
 
   return (
-    <section id="books" className="py-24 md:py-32 bg-card/40">
+    <section id="books" className="py-20 md:py-32 bg-muted/40">
       <div className="max-w-6xl mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.7 }}
-          className="mb-16"
+          transition={{ duration: 0.6 }}
+          className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-12"
         >
-          <p className="section-label mb-4">Published Works</p>
-          <h2 className="font-display text-4xl md:text-5xl font-light leading-tight">
-            The
-            <br />
-            <span className="text-gold italic">Novels</span>
-          </h2>
+          <div>
+            <p className="section-label mb-3">Published Works</p>
+            <h2
+              className="font-display font-semibold text-foreground leading-tight"
+              style={{ fontSize: "clamp(1.75rem, 4vw, 2.75rem)" }}
+            >
+              My Books
+            </h2>
+          </div>
+          <p className="font-body text-base text-muted-foreground max-w-xs">
+            Fiction, non-fiction, and children's books spanning science,
+            research, philosophy, and imagination.
+          </p>
         </motion.div>
 
         {isLoading && (
           <div
             data-ocid="books.loading_state"
-            className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8"
+            className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
           >
-            {["sk1", "sk2", "sk3", "sk4", "sk5", "sk6"].map((k) => (
+            {["sk1", "sk2", "sk3", "sk4"].map((k) => (
               <div key={k} className="space-y-3">
-                <Skeleton className="w-full aspect-[2/3] skeleton-shimmer" />
+                <Skeleton className="w-full aspect-[2/3] rounded-xl skeleton-shimmer" />
                 <Skeleton className="h-4 w-3/4 skeleton-shimmer" />
                 <Skeleton className="h-3 w-1/2 skeleton-shimmer" />
               </div>
@@ -607,179 +838,65 @@ function BooksSection() {
             data-ocid="books.error_state"
             className="text-center py-16 text-muted-foreground"
           >
-            <p className="font-ui text-sm uppercase tracking-widest mb-2">
+            <p className="font-ui text-sm font-medium mb-1">
               Unable to load books
             </p>
-            <p className="font-body text-lg">Please try again later.</p>
+            <p className="font-body text-base">Please try again later.</p>
           </div>
         )}
 
         {!isLoading && !isError && (
           <div
             data-ocid="books.list"
-            className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10"
+            className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
           >
             {displayBooks.map((book, idx) => (
               <motion.article
                 key={book.id.toString()}
                 data-ocid={`books.item.${idx + 1}`}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-40px" }}
-                transition={{ duration: 0.6, delay: (idx % 3) * 0.1 }}
-                className="group"
-              >
-                <div className="overflow-hidden mb-5 book-card-shadow transition-all duration-500 group-hover:-translate-y-2">
-                  {book.coverUrl ? (
-                    <img
-                      src={book.coverUrl}
-                      alt={book.title}
-                      className="w-full aspect-[2/3] object-cover"
-                    />
-                  ) : (
-                    <BookCoverPlaceholder title={book.title} index={idx} />
-                  )}
-                </div>
-                <div>
-                  <div className="flex items-center gap-2 mb-2">
-                    <Badge
-                      variant="outline"
-                      className="font-ui text-xs uppercase tracking-wider border-primary/30 text-primary/80"
-                    >
-                      {book.genre}
-                    </Badge>
-                    <span className="font-ui text-xs text-muted-foreground/70">
-                      {book.publishedYear.toString()}
-                    </span>
-                  </div>
-                  <h3 className="font-display text-xl font-semibold mb-2 group-hover:text-gold transition-colors duration-300">
-                    {book.title}
-                  </h3>
-                  <p className="font-body text-sm text-muted-foreground leading-relaxed line-clamp-3">
-                    {book.description}
-                  </p>
-                </div>
-              </motion.article>
-            ))}
-          </div>
-        )}
-      </div>
-    </section>
-  );
-}
-
-// ─── Blog ─────────────────────────────────────────────────────
-function BlogSection() {
-  const { data: posts, isLoading, isError } = useGetBlogPosts();
-
-  const samplePosts = [
-    {
-      id: BigInt(1),
-      title: "On Writing Silence: What Your Characters Don't Say",
-      date: "February 14, 2026",
-      excerpt:
-        "The most powerful moments in fiction often live in the negative space—the words unspoken, the gestures withheld. I've been thinking about silence as a narrative force.",
-      body: "",
-    },
-    {
-      id: BigInt(2),
-      title: "Research Trips and the Ethics of Dark Places",
-      date: "January 28, 2026",
-      excerpt:
-        "For The Narrowing Dark, I spent three days inside a maximum-security facility. Here's what that experience taught me about empathy, fear, and the cost of storytelling.",
-      body: "",
-    },
-    {
-      id: BigInt(3),
-      title: "The Books That Broke Me Open: A Reading List",
-      date: "December 19, 2025",
-      excerpt:
-        "Every writer is a collage of their influences. These ten novels didn't just teach me craft—they dismantled my assumptions about what fiction is allowed to do.",
-      body: "",
-    },
-    {
-      id: BigInt(4),
-      title: "Against Comfort: Why I Write Difficult Characters",
-      date: "November 3, 2025",
-      excerpt:
-        "Readers often ask why my protagonists are so hard to love. The short answer: because easy love asks nothing of us. Literature should ask everything.",
-      body: "",
-    },
-  ];
-
-  const displayPosts = posts && posts.length > 0 ? posts : samplePosts;
-
-  return (
-    <section id="blog" className="py-24 md:py-32">
-      <div className="max-w-6xl mx-auto px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.7 }}
-          className="mb-16"
-        >
-          <p className="section-label mb-4">Words & Thoughts</p>
-          <h2 className="font-display text-4xl md:text-5xl font-light leading-tight">
-            From the
-            <br />
-            <span className="text-gold italic">Journal</span>
-          </h2>
-        </motion.div>
-
-        {isLoading && (
-          <div data-ocid="blog.loading_state" className="space-y-6">
-            {["bsk1", "bsk2", "bsk3"].map((k) => (
-              <div key={k} className="border border-border/60 p-6 space-y-3">
-                <Skeleton className="h-5 w-3/4 skeleton-shimmer" />
-                <Skeleton className="h-3 w-1/4 skeleton-shimmer" />
-                <Skeleton className="h-4 w-full skeleton-shimmer" />
-                <Skeleton className="h-4 w-2/3 skeleton-shimmer" />
-              </div>
-            ))}
-          </div>
-        )}
-
-        {isError && (
-          <div
-            data-ocid="blog.error_state"
-            className="text-center py-16 text-muted-foreground"
-          >
-            <p className="font-ui text-sm uppercase tracking-widest mb-2">
-              Unable to load posts
-            </p>
-            <p className="font-body text-lg">Please try again later.</p>
-          </div>
-        )}
-
-        {!isLoading && !isError && (
-          <div data-ocid="blog.list" className="grid md:grid-cols-2 gap-8">
-            {displayPosts.map((post, idx) => (
-              <motion.article
-                key={post.id.toString()}
-                data-ocid={`blog.item.${idx + 1}`}
                 initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-40px" }}
-                transition={{ duration: 0.6, delay: (idx % 2) * 0.1 }}
-                className="group border border-border/60 hover:border-primary/40 p-7 transition-all duration-300 hover:bg-card/60"
+                transition={{ duration: 0.5, delay: (idx % 4) * 0.06 }}
+                className="group"
               >
-                <p className="font-ui text-xs uppercase tracking-widest text-muted-foreground/60 mb-3">
-                  {post.date}
-                </p>
-                <h3 className="font-display text-xl font-semibold leading-snug mb-3 group-hover:text-gold transition-colors duration-300">
-                  {post.title}
-                </h3>
-                <p className="font-body text-base text-muted-foreground leading-relaxed mb-5 line-clamp-3">
-                  {post.excerpt}
-                </p>
-                <button
-                  type="button"
-                  className="font-ui text-xs uppercase tracking-widest text-primary/70 hover:text-primary flex items-center gap-2 transition-colors group/btn"
-                >
-                  Read More
-                  <ArrowRight className="h-3 w-3 transition-transform group-hover/btn:translate-x-1" />
-                </button>
+                <div className="overflow-hidden rounded-xl book-card-shadow mb-4 transition-transform duration-300 group-hover:-translate-y-1.5">
+                  <img
+                    src={book.coverUrl}
+                    alt={book.title}
+                    className="w-full aspect-[2/3] object-cover"
+                    loading="lazy"
+                  />
+                </div>
+                <div>
+                  <div className="flex items-center gap-2 mb-1.5">
+                    <Badge
+                      variant="secondary"
+                      className="font-ui text-xs font-medium text-muted-foreground bg-muted/60 border-0"
+                    >
+                      {book.genre}
+                    </Badge>
+                    <span className="font-ui text-xs text-muted-foreground/60">
+                      {book.publishedYear.toString()}
+                    </span>
+                  </div>
+                  <h3 className="font-ui text-base font-semibold text-foreground leading-snug mb-1.5 group-hover:text-primary transition-colors duration-200 line-clamp-2">
+                    {book.title}
+                  </h3>
+                  <p className="font-body text-sm text-muted-foreground leading-relaxed line-clamp-2 mb-3">
+                    {book.description}
+                  </p>
+                  <a
+                    href="https://www.rokomari.com/book/author/119963/dr-muhammad-sah-hafez-kobir"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    data-ocid="books.primary_button"
+                    className="inline-flex items-center gap-1.5 font-ui text-xs font-semibold text-primary border border-primary/30 bg-primary/5 hover:bg-primary/10 hover:border-primary/50 px-3 py-1.5 rounded-full transition-all duration-200"
+                  >
+                    <ExternalLink className="h-3 w-3" />
+                    Buy on Rokomari
+                  </a>
+                </div>
               </motion.article>
             ))}
           </div>
@@ -789,7 +906,7 @@ function BlogSection() {
   );
 }
 
-// ─── Contact ──────────────────────────────────────────────────
+// ─── Contact Section ──────────────────────────────────────────
 function ContactSection() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -840,43 +957,44 @@ function ContactSection() {
   }
 
   return (
-    <section id="contact" className="py-24 md:py-32 bg-card/40">
+    <section id="contact" className="py-20 md:py-32">
       <div className="max-w-6xl mx-auto px-6">
-        <div className="grid md:grid-cols-2 gap-16">
-          {/* Left: text */}
+        <div className="grid md:grid-cols-2 gap-14 items-start">
+          {/* Left: copy */}
           <motion.div
-            initial={{ opacity: 0, x: -24 }}
+            initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 0.7 }}
           >
             <p className="section-label mb-4">Get in Touch</p>
-            <h2 className="font-display text-4xl md:text-5xl font-light leading-tight mb-8">
+            <h2
+              className="font-display font-semibold text-foreground leading-tight mb-6"
+              style={{ fontSize: "clamp(1.75rem, 4vw, 2.75rem)" }}
+            >
               Write to
               <br />
-              <span className="text-gold italic">Dr. Ashfy</span>
+              <span className="text-primary">Dr. Ashfy</span>
             </h2>
-            <div className="space-y-5 font-body text-lg text-muted-foreground leading-relaxed">
+            <div className="space-y-4 font-body text-base text-muted-foreground leading-relaxed mb-8">
               <p>
                 For reader mail, speaking engagements, media enquiries, or
                 collaborations — Dr. Ashfy reads every message personally and
-                responds to as many as she can.
+                responds to as many as he can.
               </p>
               <p>
-                For rights and licensing, please contact her literary agent at{" "}
-                <span className="text-foreground">
-                  Greene &amp; Heaton Ltd.
-                </span>
+                Interested in research mentorship or the GUSTO Research Group?
+                Feel free to reach out for more information.
               </p>
             </div>
 
             {/* Quote */}
-            <blockquote className="mt-10 border-l-2 border-primary pl-6">
-              <p className="font-display text-xl italic leading-relaxed text-foreground/80">
-                "Every letter I receive reminds me why I write—you are the
-                reason these stories matter."
+            <blockquote className="border-l-4 border-primary/40 pl-5 bg-primary/5 py-4 pr-4 rounded-r-xl">
+              <p className="font-display text-lg italic text-foreground/80 leading-relaxed">
+                "Every question from a student is a seed that can grow into
+                something extraordinary."
               </p>
-              <footer className="mt-3 font-ui text-xs uppercase tracking-widest text-muted-foreground">
+              <footer className="mt-2 font-ui text-xs text-muted-foreground uppercase tracking-wider">
                 — Dr. Ashfy
               </footer>
             </blockquote>
@@ -884,42 +1002,44 @@ function ContactSection() {
 
           {/* Right: form */}
           <motion.div
-            initial={{ opacity: 0, x: 24 }}
+            initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.8, delay: 0.1 }}
+            transition={{ duration: 0.7, delay: 0.1 }}
           >
-            {submitStatus === "success" && (
+            {submitStatus === "success" ? (
               <div
                 data-ocid="contact.success_state"
-                className="h-full flex flex-col items-center justify-center text-center py-16 border border-primary/30 bg-card"
+                className="bg-card border border-border rounded-2xl p-10 text-center"
               >
-                <div className="mb-5 text-gold">
-                  <BookOpen className="h-10 w-10 mx-auto mb-3 opacity-70" />
+                <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <BookOpen className="h-6 w-6 text-green-600" />
                 </div>
-                <h3 className="font-display text-2xl font-light mb-3">
-                  Message Sent
+                <h3 className="font-display text-2xl font-semibold text-foreground mb-3">
+                  Message Sent!
                 </h3>
-                <p className="font-body text-muted-foreground mb-8">
-                  Dr. Ashfy will read your message and reply when she surfaces
-                  from whatever dark story she's currently writing.
+                <p className="font-body text-base text-muted-foreground mb-6">
+                  Thank you for reaching out. Dr. Ashfy will read your message
+                  and get back to you soon.
                 </p>
                 <button
                   type="button"
                   onClick={() => setSubmitStatus("idle")}
-                  className="font-ui text-xs uppercase tracking-widest text-primary/70 hover:text-primary transition-colors"
+                  className="font-ui text-sm font-semibold text-primary hover:text-primary/80 transition-colors"
                 >
                   Send another message
                 </button>
               </div>
-            )}
-
-            {submitStatus !== "success" && (
-              <form onSubmit={handleSubmit} noValidate className="space-y-6">
+            ) : (
+              <form
+                onSubmit={handleSubmit}
+                noValidate
+                className="bg-card border border-border rounded-2xl p-8 space-y-5"
+              >
                 <div>
                   <label
                     htmlFor="contact-name"
-                    className="font-ui text-xs uppercase tracking-widest text-muted-foreground block mb-2"
+                    className="font-ui text-sm font-semibold text-foreground block mb-2"
                   >
                     Your Name
                   </label>
@@ -930,11 +1050,14 @@ function ContactSection() {
                     placeholder="Full name"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    className="bg-input/50 border-border/60 focus:border-primary/60 font-body text-base h-12 placeholder:text-muted-foreground/40"
+                    className="bg-background border-border focus:border-primary h-11 font-body text-base"
                     disabled={isPending}
                   />
                   {errors.name && (
-                    <p className="font-ui text-xs text-destructive mt-1.5">
+                    <p
+                      data-ocid="contact.error_state"
+                      className="font-ui text-xs text-destructive mt-1.5"
+                    >
                       {errors.name}
                     </p>
                   )}
@@ -943,7 +1066,7 @@ function ContactSection() {
                 <div>
                   <label
                     htmlFor="contact-email"
-                    className="font-ui text-xs uppercase tracking-widest text-muted-foreground block mb-2"
+                    className="font-ui text-sm font-semibold text-foreground block mb-2"
                   >
                     Email Address
                   </label>
@@ -954,11 +1077,14 @@ function ContactSection() {
                     placeholder="you@example.com"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="bg-input/50 border-border/60 focus:border-primary/60 font-body text-base h-12 placeholder:text-muted-foreground/40"
+                    className="bg-background border-border focus:border-primary h-11 font-body text-base"
                     disabled={isPending}
                   />
                   {errors.email && (
-                    <p className="font-ui text-xs text-destructive mt-1.5">
+                    <p
+                      data-ocid="contact.error_state"
+                      className="font-ui text-xs text-destructive mt-1.5"
+                    >
                       {errors.email}
                     </p>
                   )}
@@ -967,7 +1093,7 @@ function ContactSection() {
                 <div>
                   <label
                     htmlFor="contact-message"
-                    className="font-ui text-xs uppercase tracking-widest text-muted-foreground block mb-2"
+                    className="font-ui text-sm font-semibold text-foreground block mb-2"
                   >
                     Your Message
                   </label>
@@ -977,11 +1103,14 @@ function ContactSection() {
                     placeholder="What's on your mind..."
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
-                    className="bg-input/50 border-border/60 focus:border-primary/60 font-body text-base min-h-36 resize-none placeholder:text-muted-foreground/40"
+                    className="bg-background border-border focus:border-primary font-body text-base min-h-32 resize-none"
                     disabled={isPending}
                   />
                   {errors.message && (
-                    <p className="font-ui text-xs text-destructive mt-1.5">
+                    <p
+                      data-ocid="contact.error_state"
+                      className="font-ui text-xs text-destructive mt-1.5"
+                    >
                       {errors.message}
                     </p>
                   )}
@@ -990,9 +1119,9 @@ function ContactSection() {
                 {submitStatus === "error" && (
                   <div
                     data-ocid="contact.error_state"
-                    className="bg-destructive/10 border border-destructive/30 px-4 py-3"
+                    className="bg-destructive/10 border border-destructive/30 rounded-lg px-4 py-3"
                   >
-                    <p className="font-ui text-xs text-destructive">
+                    <p className="font-ui text-sm text-destructive">
                       Something went wrong. Please try again.
                     </p>
                   </div>
@@ -1003,7 +1132,7 @@ function ContactSection() {
                   type="submit"
                   size="lg"
                   disabled={isPending}
-                  className="w-full bg-primary text-primary-foreground hover:bg-primary/90 font-ui font-medium tracking-wide text-sm uppercase h-12 shadow-gold-sm hover:shadow-gold-md transition-all"
+                  className="w-full bg-foreground text-background hover:bg-foreground/90 font-ui font-semibold h-12 rounded-xl"
                 >
                   {isPending ? (
                     <>
@@ -1031,154 +1160,124 @@ function Footer() {
   const caffeineUrl = `https://caffeine.ai?utm_source=caffeine-footer&utm_medium=referral&utm_content=${encodeURIComponent(hostname)}`;
 
   return (
-    <footer className="border-t border-border/60 py-12 md:py-16">
-      <div className="max-w-6xl mx-auto px-6">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-          {/* Brand */}
-          <div className="text-center md:text-left">
-            <p className="font-display text-xl font-light text-gold mb-1">
+    <footer className="bg-foreground text-background/80">
+      <div className="max-w-6xl mx-auto px-6 py-14">
+        {/* Top: 4 columns */}
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-8 mb-12">
+          {/* Col 1: Brand */}
+          <div className="col-span-2 md:col-span-1">
+            <p className="font-display text-xl font-semibold text-background mb-2">
               Dr. Ashfy
             </p>
-            <p className="font-ui text-xs uppercase tracking-widest text-muted-foreground/60">
-              Author · Novelist · Storyteller
+            <p className="font-body text-sm text-background/60 leading-relaxed mb-5">
+              Educator, Researcher, and Author based in Detroit.
             </p>
+            <div className="flex items-center gap-4">
+              <a
+                href="https://x.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="X / Twitter"
+                className="text-background/50 hover:text-background transition-colors"
+                data-ocid="footer.link"
+              >
+                <SiX className="h-4 w-4" />
+              </a>
+              <a
+                href="https://instagram.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram"
+                className="text-background/50 hover:text-background transition-colors"
+                data-ocid="footer.link"
+              >
+                <SiInstagram className="h-4 w-4" />
+              </a>
+            </div>
           </div>
 
-          {/* Social icons */}
-          <div className="flex items-center gap-5">
-            <a
-              href="https://x.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Twitter / X"
-              className="text-muted-foreground/50 hover:text-gold transition-colors"
-            >
-              <SiX className="h-4 w-4" />
-            </a>
-            <a
-              href="https://instagram.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Instagram"
-              className="text-muted-foreground/50 hover:text-gold transition-colors"
-            >
-              <SiInstagram className="h-4 w-4" />
-            </a>
-            <a
-              href="https://goodreads.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Goodreads"
-              className="text-muted-foreground/50 hover:text-gold transition-colors"
-            >
-              <SiGoodreads className="h-4 w-4" />
-            </a>
+          {/* Col 2: Books */}
+          <div>
+            <p className="font-ui text-xs font-semibold text-background/40 uppercase tracking-widest mb-4">
+              Books
+            </p>
+            <ul className="space-y-2.5">
+              {["All Books", "Fiction", "Non-Fiction", "Children's Books"].map(
+                (label) => (
+                  <li key={label}>
+                    <button
+                      type="button"
+                      onClick={() => scrollTo("books")}
+                      className="font-ui text-sm text-background/60 hover:text-background transition-colors"
+                      data-ocid="footer.link"
+                    >
+                      {label}
+                    </button>
+                  </li>
+                ),
+              )}
+            </ul>
           </div>
 
-          {/* Copyright */}
-          <p className="font-ui text-xs text-muted-foreground/50 text-center md:text-right">
-            © {year} Dr. Ashfy.{" "}
+          {/* Col 4: About */}
+          <div>
+            <p className="font-ui text-xs font-semibold text-background/40 uppercase tracking-widest mb-4">
+              About
+            </p>
+            <ul className="space-y-2.5">
+              {[
+                { label: "About Dr. Ashfy", target: "about" },
+                { label: "GUSTO Research", target: "about" },
+                { label: "Contact", target: "contact" },
+              ].map(({ label, target }) => (
+                <li key={label}>
+                  <button
+                    type="button"
+                    onClick={() => scrollTo(target)}
+                    className="font-ui text-sm text-background/60 hover:text-background transition-colors"
+                    data-ocid="footer.link"
+                  >
+                    {label}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        {/* Bottom bar */}
+        <div className="pt-8 border-t border-background/10 flex flex-col md:flex-row items-center justify-between gap-4">
+          <p className="font-ui text-sm text-background/40">
+            © {year} Dr. Mohammad Shah Hafez Kabir (Ashfy). All rights reserved.
+          </p>
+          <p className="font-ui text-sm text-background/40">
             <a
               href={caffeineUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-muted-foreground transition-colors"
+              className="hover:text-background/70 transition-colors"
             >
               Built with ♥ using caffeine.ai
             </a>
           </p>
-        </div>
-
-        {/* Nav */}
-        <div className="mt-8 pt-8 border-t border-border/30 flex flex-wrap justify-center gap-6">
-          {["About", "Books", "Blog", "Contact"].map((item) => (
-            <button
-              key={item}
-              type="button"
-              onClick={() => scrollTo(item.toLowerCase())}
-              className="font-ui text-xs uppercase tracking-widest text-muted-foreground/50 hover:text-muted-foreground transition-colors"
-            >
-              {item}
-            </button>
-          ))}
         </div>
       </div>
     </footer>
   );
 }
 
-// ─── Pull-Quote Band ──────────────────────────────────────────
-function PullQuoteBand() {
-  return (
-    <motion.section
-      initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
-      viewport={{ once: true, margin: "-60px" }}
-      transition={{ duration: 1 }}
-      className="pull-quote-band py-20 md:py-28 overflow-hidden relative"
-    >
-      {/* Large decorative quote mark */}
-      <div
-        className="absolute top-4 left-1/2 -translate-x-1/2 font-display text-[18rem] leading-none text-primary/5 select-none pointer-events-none"
-        aria-hidden="true"
-      >
-        "
-      </div>
-
-      <div className="relative z-10 max-w-3xl mx-auto px-6 text-center">
-        <div className="flex items-center justify-center gap-5 mb-10">
-          <div className="h-px w-12 bg-primary/30" />
-          <div className="w-1.5 h-1.5 rounded-full bg-primary/50" />
-          <div className="h-px w-12 bg-primary/30" />
-        </div>
-
-        <motion.blockquote
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.9, delay: 0.2 }}
-        >
-          <p
-            className="font-display font-light text-foreground/90 leading-snug mb-8"
-            style={
-              {
-                fontSize: "clamp(1.5rem, 3.5vw, 2.5rem)",
-                fontStyle: "italic",
-                fontOpticalSizing: "auto",
-              } as React.CSSProperties
-            }
-          >
-            "I write because the dark places deserve a witness — and because the
-            light only means something when you know how long you were without
-            it."
-          </p>
-          <footer className="font-ui text-xs uppercase tracking-[0.2em] text-primary/70">
-            Dr. Ashfy · From The Guardian Interview, 2024
-          </footer>
-        </motion.blockquote>
-
-        <div className="flex items-center justify-center gap-5 mt-10">
-          <div className="h-px w-12 bg-primary/30" />
-          <div className="w-1.5 h-1.5 rounded-full bg-primary/50" />
-          <div className="h-px w-12 bg-primary/30" />
-        </div>
-      </div>
-    </motion.section>
-  );
-}
-
 // ─── App ──────────────────────────────────────────────────────
 export default function App() {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-background">
       <Toaster richColors position="top-right" />
       <Navbar />
       <main>
         <HeroSection />
+        <HelpSection />
         <AboutSection />
+        <ResearchSection />
         <BooksSection />
-        <PullQuoteBand />
-        <BlogSection />
         <ContactSection />
       </main>
       <Footer />

@@ -17,8 +17,9 @@ export default {
     extend: {
       fontFamily: {
         display: ["Fraunces", "Georgia", "serif"],
-        body: ["Crimson Pro", "Georgia", "serif"],
+        body: ["Plus Jakarta Sans", "system-ui", "sans-serif"],
         ui: ["General Sans", "system-ui", "sans-serif"],
+        sans: ["Plus Jakarta Sans", "system-ui", "sans-serif"],
       },
       colors: {
         border: "oklch(var(--border))",
@@ -79,10 +80,15 @@ export default {
         sm: "calc(var(--radius) - 4px)",
       },
       boxShadow: {
-        xs: "0 1px 2px 0 rgba(0,0,0,0.05)",
-        "gold-sm": "0 2px 12px oklch(var(--primary) / 0.2)",
-        "gold-md": "0 4px 24px oklch(var(--primary) / 0.25)",
-        "card-dark": "0 4px 32px rgba(0,0,0,0.4)",
+        xs: "0 1px 2px 0 rgba(0,0,0,0.04)",
+        sm: "0 1px 3px 0 rgba(0,0,0,0.07), 0 1px 2px -1px rgba(0,0,0,0.05)",
+        DEFAULT: "0 2px 8px 0 rgba(0,0,0,0.08), 0 1px 4px -1px rgba(0,0,0,0.06)",
+        md: "0 4px 16px 0 rgba(0,0,0,0.1), 0 2px 6px -2px rgba(0,0,0,0.07)",
+        lg: "0 8px 32px 0 rgba(0,0,0,0.1), 0 4px 12px -4px rgba(0,0,0,0.08)",
+        "gold-sm": "0 2px 12px oklch(var(--primary) / 0.18)",
+        "gold-md": "0 4px 24px oklch(var(--primary) / 0.22)",
+        "card-light": "0 2px 12px rgba(0,0,0,0.07), 0 1px 4px rgba(0,0,0,0.05)",
+        "card-hover": "0 8px 32px rgba(0,0,0,0.12), 0 4px 12px rgba(0,0,0,0.07)",
       },
       keyframes: {
         "accordion-down": {

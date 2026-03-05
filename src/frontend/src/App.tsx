@@ -54,7 +54,7 @@ function Navbar() {
           className="font-display text-lg font-semibold tracking-wide text-foreground hover:text-gold transition-colors"
           data-ocid="nav.link"
         >
-          Eleanor Voss
+          Dr. Ashfy
         </button>
 
         {/* Desktop nav */}
@@ -175,19 +175,19 @@ function HeroSection() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.1, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
           className="mb-8 select-none"
-          aria-label="Eleanor Voss"
+          aria-label="Dr. Ashfy"
         >
           <span
             className="hero-name-first block text-foreground"
             style={{ fontSize: "clamp(4.5rem, 13vw, 10.5rem)" }}
           >
-            Eleanor
+            Dr.
           </span>
           <span
             className="hero-name-last block text-gold"
             style={{ fontSize: "clamp(5rem, 15vw, 12rem)" }}
           >
-            Voss
+            Ashfy
           </span>
         </motion.h1>
 
@@ -230,7 +230,7 @@ function HeroSection() {
             onClick={() => scrollTo("about")}
             className="font-ui text-xs uppercase tracking-widest text-muted-foreground hover:text-gold transition-colors flex items-center gap-2 group"
           >
-            About Eleanor
+            About Dr. Ashfy
             <span className="block h-px w-5 bg-current transition-all group-hover:w-8" />
           </button>
         </motion.div>
@@ -275,7 +275,7 @@ function AboutSection() {
             <div className="relative overflow-hidden">
               <img
                 src="/assets/generated/author-portrait.dim_600x750.jpg"
-                alt="Eleanor Voss"
+                alt="Dr. Ashfy"
                 className="w-full max-w-sm mx-auto md:mx-0 object-cover aspect-[4/5] grayscale hover:grayscale-0 transition-all duration-700"
                 style={{ filter: "contrast(1.05) brightness(0.92)" }}
               />
@@ -315,8 +315,8 @@ function AboutSection() {
             </h2>
             <div className="space-y-5 font-body text-lg text-muted-foreground leading-relaxed">
               <p>
-                Eleanor Voss grew up between the fog-draped moors of Yorkshire
-                and the neon-lit streets of Manhattan, and both worlds haunt her
+                Dr. Ashfy grew up between the fog-draped moors of Yorkshire and
+                the neon-lit streets of Manhattan, and both worlds haunt her
                 fiction. She is the author of six critically acclaimed novels,
                 most recently{" "}
                 <em className="text-foreground">The Narrowing Dark</em>, a
@@ -330,7 +330,7 @@ function AboutSection() {
                 was longlisted for the Booker Prize in 2022.
               </p>
               <p>
-                When she is not writing, Eleanor teaches a masterclass in
+                When she is not writing, Dr. Ashfy teaches a masterclass in
                 narrative tension at Columbia University and mentors emerging
                 voices through the PEN America fellowship.
               </p>
@@ -422,7 +422,7 @@ function BookCoverPlaceholder({
           className="font-ui text-[0.6rem] uppercase tracking-[0.25em] font-medium mb-3"
           style={{ color: design.accent, opacity: 0.8 }}
         >
-          Eleanor Voss
+          Dr. Ashfy
         </p>
         <div
           className="h-px w-full opacity-20"
@@ -562,7 +562,7 @@ function BooksSection() {
       genre: "Literary Fiction",
       publishedYear: BigInt(2013),
       description:
-        "Eleanor Voss's debut novel: a luminous, heartbreaking story about a woman who returns to her coastal hometown after her twin sister vanishes without a trace.",
+        "Dr. Ashfy's debut novel: a luminous, heartbreaking story about a woman who returns to her coastal hometown after her twin sister vanishes without a trace.",
       coverUrl: "",
     },
   ];
@@ -829,7 +829,7 @@ function ContactSection() {
           setEmail("");
           setMessage("");
           setErrors({});
-          toast.success("Message sent! Eleanor will be in touch.");
+          toast.success("Message sent! Dr. Ashfy will be in touch.");
         },
         onError: () => {
           setSubmitStatus("error");
@@ -854,12 +854,12 @@ function ContactSection() {
             <h2 className="font-display text-4xl md:text-5xl font-light leading-tight mb-8">
               Write to
               <br />
-              <span className="text-gold italic">Eleanor</span>
+              <span className="text-gold italic">Dr. Ashfy</span>
             </h2>
             <div className="space-y-5 font-body text-lg text-muted-foreground leading-relaxed">
               <p>
                 For reader mail, speaking engagements, media enquiries, or
-                collaborations — Eleanor reads every message personally and
+                collaborations — Dr. Ashfy reads every message personally and
                 responds to as many as she can.
               </p>
               <p>
@@ -877,7 +877,7 @@ function ContactSection() {
                 reason these stories matter."
               </p>
               <footer className="mt-3 font-ui text-xs uppercase tracking-widest text-muted-foreground">
-                — Eleanor Voss
+                — Dr. Ashfy
               </footer>
             </blockquote>
           </motion.div>
@@ -901,7 +901,7 @@ function ContactSection() {
                   Message Sent
                 </h3>
                 <p className="font-body text-muted-foreground mb-8">
-                  Eleanor will read your message and reply when she surfaces
+                  Dr. Ashfy will read your message and reply when she surfaces
                   from whatever dark story she's currently writing.
                 </p>
                 <button
@@ -1037,7 +1037,7 @@ function Footer() {
           {/* Brand */}
           <div className="text-center md:text-left">
             <p className="font-display text-xl font-light text-gold mb-1">
-              Eleanor Voss
+              Dr. Ashfy
             </p>
             <p className="font-ui text-xs uppercase tracking-widest text-muted-foreground/60">
               Author · Novelist · Storyteller
@@ -1077,7 +1077,7 @@ function Footer() {
 
           {/* Copyright */}
           <p className="font-ui text-xs text-muted-foreground/50 text-center md:text-right">
-            © {year} Eleanor Voss.{" "}
+            © {year} Dr. Ashfy.{" "}
             <a
               href={caffeineUrl}
               target="_blank"
@@ -1153,7 +1153,7 @@ function PullQuoteBand() {
             it."
           </p>
           <footer className="font-ui text-xs uppercase tracking-[0.2em] text-primary/70">
-            Eleanor Voss · From The Guardian Interview, 2024
+            Dr. Ashfy · From The Guardian Interview, 2024
           </footer>
         </motion.blockquote>
 

@@ -1,0 +1,219 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Font Faces ────────────────────────────────────────────── */
+@font-face {
+  font-family: "Fraunces";
+  src: url("/assets/fonts/Fraunces.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  font-optical-sizing: auto;
+}
+@font-face {
+  font-family: "Crimson Pro";
+  src: url("/assets/fonts/CrimsonPro.woff2") format("woff2");
+  font-weight: 200 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "General Sans";
+  src: url("/assets/fonts/GeneralSans.woff2") format("woff2");
+  font-weight: 300 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ── Design Tokens ─────────────────────────────────────────── */
+@layer base {
+  :root {
+    --radius: 0.25rem;
+
+    /* Warm dark literary palette */
+    --background: 0.12 0.008 55;
+    --foreground: 0.94 0.012 65;
+
+    --card: 0.16 0.01 50;
+    --card-foreground: 0.94 0.012 65;
+
+    --popover: 0.18 0.01 50;
+    --popover-foreground: 0.94 0.012 65;
+
+    /* Gold accent - warm amber */
+    --primary: 0.75 0.12 75;
+    --primary-foreground: 0.12 0.008 55;
+
+    --secondary: 0.22 0.012 55;
+    --secondary-foreground: 0.88 0.012 65;
+
+    --muted: 0.20 0.01 55;
+    --muted-foreground: 0.62 0.02 60;
+
+    --accent: 0.72 0.09 72;
+    --accent-foreground: 0.12 0.008 55;
+
+    --destructive: 0.577 0.245 27.325;
+    --destructive-foreground: 0.985 0 0;
+
+    --border: 0.28 0.015 58;
+    --input: 0.22 0.012 55;
+    --ring: 0.75 0.12 75;
+
+    /* Chart (not heavily used) */
+    --chart-1: 0.75 0.12 75;
+    --chart-2: 0.6 0.118 184.704;
+    --chart-3: 0.398 0.07 227.392;
+    --chart-4: 0.828 0.189 84.429;
+    --chart-5: 0.769 0.188 70.08;
+
+    /* Sidebar */
+    --sidebar: 0.14 0.01 55;
+    --sidebar-foreground: 0.94 0.012 65;
+    --sidebar-primary: 0.75 0.12 75;
+    --sidebar-primary-foreground: 0.12 0.008 55;
+    --sidebar-accent: 0.22 0.012 55;
+    --sidebar-accent-foreground: 0.94 0.012 65;
+    --sidebar-border: 0.28 0.015 58;
+    --sidebar-ring: 0.75 0.12 75;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: "Crimson Pro", Georgia, serif;
+    font-size: 18px;
+    line-height: 1.7;
+  }
+}
+
+/* ── Utilities ─────────────────────────────────────────────── */
+@layer utilities {
+  .font-display {
+    font-family: "Fraunces", Georgia, serif;
+  }
+
+  .font-sans-ui {
+    font-family: "General Sans", system-ui, sans-serif;
+  }
+
+  .text-gold {
+    color: oklch(var(--primary));
+  }
+
+  .bg-grain {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 128px 128px;
+  }
+
+  .border-gold {
+    border-color: oklch(var(--primary));
+  }
+
+  .nav-link {
+    font-family: "General Sans", system-ui, sans-serif;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: oklch(var(--muted-foreground));
+    transition: color 0.2s ease;
+  }
+
+  .nav-link:hover {
+    color: oklch(var(--primary));
+  }
+
+  .section-label {
+    font-family: "General Sans", system-ui, sans-serif;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: oklch(var(--primary));
+  }
+
+  /* ── Hero typography ──────────────────────────────────────── */
+  .hero-name-first {
+    font-family: "Fraunces", Georgia, serif;
+    font-optical-sizing: auto;
+    font-weight: 200;
+    letter-spacing: 0.04em;
+    line-height: 0.88;
+  }
+
+  .hero-name-last {
+    font-family: "Fraunces", Georgia, serif;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-style: italic;
+    letter-spacing: -0.01em;
+    line-height: 0.88;
+  }
+
+  /* ── Book card spine shadow ───────────────────────────────── */
+  .book-card-shadow {
+    box-shadow:
+      -4px 0 8px rgba(0, 0, 0, 0.5),
+      4px 0 4px rgba(0, 0, 0, 0.2),
+      0 8px 24px rgba(0, 0, 0, 0.6);
+  }
+
+  .book-card-shadow:hover {
+    box-shadow:
+      -6px 0 12px rgba(0, 0, 0, 0.6),
+      6px 0 6px rgba(0, 0, 0, 0.25),
+      0 16px 40px rgba(0, 0, 0, 0.7);
+  }
+
+  /* ── Pull quote band ──────────────────────────────────────── */
+  .pull-quote-band {
+    background:
+      linear-gradient(
+        135deg,
+        oklch(0.10 0.015 55) 0%,
+        oklch(0.14 0.02 48) 50%,
+        oklch(0.10 0.015 55) 100%
+      );
+  }
+
+  .skeleton-shimmer {
+    background: linear-gradient(
+      90deg,
+      oklch(var(--muted)) 25%,
+      oklch(var(--secondary)) 50%,
+      oklch(var(--muted)) 75%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+  }
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ── Scrollbar ─────────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: oklch(var(--background));
+}
+::-webkit-scrollbar-thumb {
+  background: oklch(var(--border));
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: oklch(var(--primary) / 0.6);
+}

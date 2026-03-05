@@ -494,7 +494,7 @@ function AboutSection() {
               />
               <div className="relative overflow-hidden rounded-2xl shadow-md">
                 <img
-                  src="/assets/uploads/Ashfy-Photo-1.jpg"
+                  src="/assets/uploads/20251022_134705295_iOS-1--1.jpg"
                   alt="Dr. Ashfy"
                   className="w-full object-cover"
                   style={{ aspectRatio: "4/5" }}

@@ -789,6 +789,15 @@ function BooksSection() {
         "A spooky and exciting children's tale following a brave group of young friends who form the Ghost Catcher Club and set out to solve the mysterious haunting of an old mansion.",
       coverUrl: "/assets/uploads/Main-Full-Cover-V2-01-7.jpg",
     },
+    {
+      id: BigInt(8),
+      title: "The Wonderful Journey of Achiya",
+      genre: "Children's Fiction",
+      publishedYear: BigInt(2025),
+      description:
+        "A magical and enchanting children's story following young Achiya on a wonderful journey filled with mystical creatures, colorful birds, and the beauty of nature and imagination.",
+      coverUrl: "/assets/uploads/Picture1mnk-1.jpg",
+    },
   ];
 
   const displayBooks = books && books.length > 0 ? books : sampleBooks;
@@ -901,6 +910,93 @@ function BooksSection() {
             ))}
           </div>
         )}
+      </div>
+    </section>
+  );
+}
+
+// ─── Quotes Section ───────────────────────────────────────────
+function QuotesSection() {
+  const quotes = [
+    {
+      id: "q1",
+      text: "All the aquatic creatures trapped in the nets of pollution,\nThose children of Minamata Bay who were poisoned,\nDo you not see? It is humans who harm humans.",
+    },
+    {
+      id: "q2",
+      text: "Even if you live for a hundred years, you still walk the path toward extinction.\nTo be born in such a time is a deep misfortune.\nYou wander through space with the whole world in your imagination,\nYet today, you stand helpless in the act of reproduction.",
+    },
+    {
+      id: "q3",
+      text: "When Little Boy and Fat Man struck Hiroshima,\nthousands of children were playing peacefully in all parts of the world.\nIt was said that children of every nation would grow and play like this,\nyet some remained above the ground,\nwhile others were torn from the earth and vanished.",
+    },
+  ];
+
+  return (
+    <section className="py-20 md:py-28 bg-foreground text-background">
+      <div className="max-w-5xl mx-auto px-6">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-14"
+        >
+          <p className="font-ui text-xs font-semibold text-background/40 uppercase tracking-widest mb-3">
+            From the Author's Pen
+          </p>
+          <h2
+            className="font-display font-semibold text-background leading-tight mb-3"
+            style={{ fontSize: "clamp(1.75rem, 4vw, 2.75rem)" }}
+          >
+            Poems by Dr. Ashfy
+          </h2>
+          <p className="font-body text-sm text-background/50 italic">
+            From the children's book "The Wonderful Journey of Achiya"
+          </p>
+        </motion.div>
+
+        <div className="grid md:grid-cols-3 gap-6">
+          {quotes.map((quote, i) => (
+            <motion.div
+              key={quote.id}
+              data-ocid={`quotes.item.${i + 1}`}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ duration: 0.55, delay: i * 0.1 }}
+              className="relative bg-background/5 border border-background/10 rounded-2xl p-7 flex flex-col"
+            >
+              {/* Opening quotation mark */}
+              <span
+                className="font-display text-6xl leading-none text-primary/60 mb-3 block"
+                aria-hidden="true"
+              >
+                "
+              </span>
+              <p className="font-body text-base text-background/80 leading-relaxed whitespace-pre-line flex-1">
+                {quote.text}
+              </p>
+              {/* Closing quotation mark */}
+              <span
+                className="font-display text-4xl leading-none text-primary/40 mt-3 block text-right"
+                aria-hidden="true"
+              >
+                "
+              </span>
+            </motion.div>
+          ))}
+        </div>
+
+        <motion.p
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+          className="text-center font-ui text-xs text-background/30 mt-10 uppercase tracking-widest"
+        >
+          — Dr. Ashfy
+        </motion.p>
       </div>
     </section>
   );
@@ -1278,6 +1374,7 @@ export default function App() {
         <AboutSection />
         <ResearchSection />
         <BooksSection />
+        <QuotesSection />
         <ContactSection />
       </main>
       <Footer />

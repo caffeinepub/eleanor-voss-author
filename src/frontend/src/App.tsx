@@ -1102,33 +1102,6 @@ function AchiyaSketchesSection() {
 
 // ─── Audio Stories Section ────────────────────────────────────
 function AudioStoriesSection() {
-  const videos = [
-    {
-      id: "4RjVfVu0GsI",
-      title: "The Wonderful Journey of Achiya - Part 1",
-    },
-    {
-      id: "8sKnjQ6AV0s",
-      title: "Ghost Catcher Club - Audio Story",
-    },
-    {
-      id: "VgMB-YJbHWw",
-      title: "The Dialogues of Socrata and Plata",
-    },
-    {
-      id: "Hk9mHCsBOd8",
-      title: "Andy's Journey Into the Realm of Research",
-    },
-    {
-      id: "xvFZjo5PgG0",
-      title: "Kid Scientists Build Their Own Lab",
-    },
-    {
-      id: "dQw4w9WgXcQ",
-      title: "Science Education Series - Episode 1",
-    },
-  ];
-
   return (
     <section
       id="audio-stories"
@@ -1167,56 +1140,7 @@ function AudioStoriesSection() {
           </p>
         </motion.div>
 
-        {/* Video thumbnail grid */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-40px" }}
-          transition={{ duration: 0.6, delay: 0.1 }}
-          className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-5 mb-10"
-        >
-          {videos.map((video, i) => (
-            <motion.a
-              key={video.id}
-              href={`https://www.youtube.com/watch?v=${video.id}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              data-ocid={`audio-stories.item.${i + 1}`}
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-20px" }}
-              transition={{ duration: 0.45, delay: (i % 3) * 0.07 }}
-              className="group block bg-white border border-border/60 rounded-xl overflow-hidden shadow-sm hover:shadow-md hover:border-primary/30 transition-all duration-200"
-            >
-              {/* Thumbnail */}
-              <div className="relative overflow-hidden aspect-video bg-gray-100">
-                <img
-                  src={`https://img.youtube.com/vi/${video.id}/hqdefault.jpg`}
-                  alt={video.title}
-                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                  loading="lazy"
-                />
-                {/* Play overlay */}
-                <div className="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/30 transition-colors duration-200">
-                  <div className="w-10 h-10 rounded-full bg-red-500 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-200">
-                    <SiYoutube className="h-5 w-5 text-white" />
-                  </div>
-                </div>
-              </div>
-              {/* Title */}
-              <div className="px-3 py-2.5">
-                <p className="font-ui text-xs font-semibold text-foreground leading-snug line-clamp-2 group-hover:text-primary transition-colors duration-200">
-                  {video.title}
-                </p>
-                <p className="font-ui text-xs text-muted-foreground mt-1">
-                  Watch on YouTube
-                </p>
-              </div>
-            </motion.a>
-          ))}
-        </motion.div>
-
-        {/* CTA row — YouTube + Spotify */}
+        {/* CTA row — YouTube + Spotify + SoundCloud */}
         <motion.div
           initial={{ opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -1226,11 +1150,11 @@ function AudioStoriesSection() {
         >
           <div className="text-center sm:text-left">
             <h3 className="font-ui text-base font-semibold text-foreground mb-1">
-              More stories on YouTube &amp; Spotify
+              More stories on YouTube, Spotify &amp; SoundCloud
             </h3>
             <p className="font-body text-sm text-muted-foreground">
-              Subscribe to the channel or listen on Spotify — explore the full
-              library of Bengali audio stories and books.
+              Subscribe to the channel or listen on Spotify and SoundCloud —
+              explore the full library of Bengali audio stories and books.
             </p>
           </div>
           <div className="flex flex-col sm:flex-row gap-3 shrink-0">
@@ -1253,6 +1177,16 @@ function AudioStoriesSection() {
             >
               <SiSpotify className="h-4 w-4" />
               Listen on Spotify
+            </a>
+            <a
+              href="https://soundcloud.com/user-203299441"
+              target="_blank"
+              rel="noopener noreferrer"
+              data-ocid="audio-stories.soundcloud_button"
+              className="inline-flex items-center gap-2 font-ui text-sm font-semibold bg-orange-500 hover:bg-orange-600 text-white px-5 py-2.5 rounded-full transition-all duration-200 shadow-sm hover:shadow-md whitespace-nowrap"
+            >
+              <SiSoundcloud className="h-4 w-4" />
+              Listen on SoundCloud
             </a>
           </div>
         </motion.div>

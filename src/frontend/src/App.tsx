@@ -10,6 +10,7 @@ import {
   ExternalLink,
   FlaskConical,
   GraduationCap,
+  Headphones,
   Loader2,
   Menu,
   Microscope,
@@ -53,6 +54,7 @@ function Navbar() {
     { label: "About", target: "about" },
     { label: "Research", target: "research" },
     { label: "Books", target: "books" },
+    { label: "Listen", target: "audio-stories" },
     { label: "Contact", target: "contact" },
   ];
 
@@ -1098,6 +1100,114 @@ function AchiyaSketchesSection() {
   );
 }
 
+// ─── Audio Stories Section ────────────────────────────────────
+function AudioStoriesSection() {
+  return (
+    <section
+      id="audio-stories"
+      data-ocid="audio-stories.section"
+      className="py-20 md:py-28"
+      style={{
+        background:
+          "linear-gradient(135deg, oklch(0.97 0.02 75 / 1) 0%, oklch(0.95 0.03 55 / 1) 50%, oklch(0.97 0.015 85 / 1) 100%)",
+      }}
+    >
+      <div className="max-w-5xl mx-auto px-6">
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 22 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.65 }}
+          className="text-center mb-12"
+        >
+          <div className="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-primary/12 mb-5">
+            <Headphones className="h-6 w-6 text-primary" />
+          </div>
+          <p className="section-label mb-3">Listen &amp; Watch</p>
+          <h2
+            className="font-display font-semibold text-foreground leading-tight mb-4"
+            style={{ fontSize: "clamp(1.75rem, 4vw, 2.75rem)" }}
+          >
+            Audio Stories
+          </h2>
+          <p className="font-body text-base text-muted-foreground max-w-lg mx-auto leading-relaxed">
+            Narrated stories and books from Dr. Ashfy's{" "}
+            <span className="text-foreground font-semibold">
+              MSHK Audio Books (আশফীর বই)
+            </span>{" "}
+            channel — bringing words to life through voice.
+          </p>
+        </motion.div>
+
+        {/* Featured Embedded Playlist */}
+        <motion.div
+          initial={{ opacity: 0, y: 28, scale: 0.98 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.7, delay: 0.1 }}
+          className="relative rounded-2xl overflow-hidden shadow-xl border border-border/40 bg-foreground mb-10"
+        >
+          {/* Decorative label */}
+          <div className="absolute top-3 left-3 z-10 flex items-center gap-1.5 bg-black/60 backdrop-blur-sm text-white px-3 py-1.5 rounded-full">
+            <SiYoutube className="h-3.5 w-3.5 text-red-400" />
+            <span className="font-ui text-xs font-semibold">
+              MSHK Audio Books
+            </span>
+          </div>
+          <div
+            style={{ position: "relative", paddingBottom: "56.25%", height: 0 }}
+          >
+            <iframe
+              src="https://www.youtube.com/embed?listType=user_uploads&list=UCo5u2oyH9GA5ynvAMNGc1Rw"
+              title="MSHK Audio Books – আশফীর বই"
+              style={{
+                position: "absolute",
+                top: 0,
+                left: 0,
+                width: "100%",
+                height: "100%",
+                border: 0,
+              }}
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            />
+          </div>
+        </motion.div>
+
+        {/* Description + CTA */}
+        <motion.div
+          initial={{ opacity: 0, y: 18 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-40px" }}
+          transition={{ duration: 0.6, delay: 0.25 }}
+          className="flex flex-col sm:flex-row items-center justify-between gap-6 bg-white border border-border/60 rounded-2xl px-7 py-6 shadow-sm"
+        >
+          <div className="text-center sm:text-left">
+            <h3 className="font-ui text-base font-semibold text-foreground mb-1">
+              More stories on YouTube
+            </h3>
+            <p className="font-body text-sm text-muted-foreground">
+              Subscribe to the channel and explore the full library of Bengali
+              audio stories and books.
+            </p>
+          </div>
+          <a
+            href="https://www.youtube.com/@MSHKBOOKS/videos"
+            target="_blank"
+            rel="noopener noreferrer"
+            data-ocid="audio-stories.primary_button"
+            className="shrink-0 inline-flex items-center gap-2 font-ui text-sm font-semibold bg-red-500 hover:bg-red-600 text-white px-6 py-3 rounded-full transition-all duration-200 shadow-sm hover:shadow-md"
+          >
+            <SiYoutube className="h-4 w-4" />
+            Browse All Audio Stories
+          </a>
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
 // ─── Contact Section ──────────────────────────────────────────
 function ContactSection() {
   const [name, setName] = useState("");
@@ -1420,6 +1530,7 @@ function Footer() {
               {[
                 { label: "About Dr. Ashfy", target: "about" },
                 { label: "GUSTO Research", target: "about" },
+                { label: "Audio Stories", target: "audio-stories" },
                 { label: "Contact", target: "contact" },
               ].map(({ label, target }) => (
                 <li key={label}>
@@ -1468,10 +1579,11 @@ export default function App() {
         <HeroSection />
         <HelpSection />
         <AboutSection />
-        <ResearchSection />
         <BooksSection />
         <QuotesSection />
         <AchiyaSketchesSection />
+        <AudioStoriesSection />
+        <ResearchSection />
         <ContactSection />
       </main>
       <Footer />

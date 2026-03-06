@@ -1,40 +1,27 @@
-# Author Website
+# Dr. Ashfy — Author
 
 ## Current State
-New project. No existing code.
+The site has: Hero, Help, About, Books, Quotes, AchiyaSketchesSection, ResearchSection (which includes MSHK Audio Books as a profile link), and Contact sections.
 
 ## Requested Changes (Diff)
 
 ### Add
-- Hero section with author name, tagline, and profile photo placeholder
-- About section with author bio
-- Books/Works section displaying a list of published books with title, cover, description, and genre
-- Blog/News section with latest posts (title, date, excerpt)
-- Contact section with a contact form (name, email, message)
-- Navigation bar with links to all sections
-- Footer with social links and copyright
+- A dedicated "Audio Stories" section that showcases Dr. Ashfy's MSHK AUDIO BOOKS YouTube channel (`https://www.youtube.com/@MSHKBOOKS/videos`) with embedded YouTube video players and a "View All on YouTube" link to the channel.
+- A "Listen" nav link pointing to the new audio-stories section.
 
 ### Modify
-N/A
+- Navbar links to include "Listen" pointing to `#audio-stories`.
+- Footer to include an "Audio Stories" link.
+- Place the Audio Stories section between AchiyaSketches and Research sections.
 
 ### Remove
-N/A
+- Nothing removed.
 
 ## Implementation Plan
-1. Backend:
-   - `Book` type: id, title, description, genre, publishedYear, coverUrl
-   - `BlogPost` type: id, title, body, excerpt, date
-   - `ContactMessage` type: id, name, email, message, timestamp
-   - Queries: getBooks, getBlogPosts
-   - Mutations: submitContactMessage
-   - Seed: 3 sample books, 3 sample blog posts
-
-2. Frontend:
-   - Single-page layout with smooth scroll navigation
-   - Navbar: fixed top, links to Hero, About, Books, Blog, Contact
-   - Hero: full-width banner with author name, tagline, CTA button
-   - About: two-column layout, author photo + bio text
-   - Books: card grid showing book covers, titles, genres, descriptions
-   - Blog: list of post cards with title, date, excerpt, read more link
-   - Contact: form with name, email, message fields and submit button
-   - Footer: social icons, copyright
+1. Add `AudioStoriesSection` component in App.tsx.
+   - Embed 4–6 representative YouTube videos using `<iframe>` embeds from the MSHK BOOKS channel (use the channel's playlist or known video IDs).
+   - Show channel description and a CTA button linking to the full channel.
+   - Use responsive grid layout (2 columns on md+, 1 on mobile).
+2. Add `{ label: "Listen", target: "audio-stories" }` to nav links array.
+3. Insert `<AudioStoriesSection />` between `<AchiyaSketchesSection />` and `<ResearchSection />` in App.
+4. Add Audio Stories link to Footer.

@@ -1002,6 +1002,102 @@ function QuotesSection() {
   );
 }
 
+// ─── Achiya Sketches Section ──────────────────────────────────
+function AchiyaSketchesSection() {
+  const sketches = [
+    {
+      src: "/assets/uploads/illustration12-1.jpg",
+      alt: "A wooden boat resting on land with birds perched on its edge and a leafy branch — from The Wonderful Journey of Achiya",
+      caption: "The Boat & the Birds",
+    },
+    {
+      src: "/assets/uploads/illustration8-2.jpg",
+      alt: "Achiya running through a forest with a tortoise and birds around her — from The Wonderful Journey of Achiya",
+      caption: "Achiya's Forest Adventure",
+    },
+    {
+      src: "/assets/uploads/inner7-3.jpg",
+      alt: "A majestic whale with a forest growing on its back — from The Wonderful Journey of Achiya",
+      caption: "The Whale Carries the World",
+    },
+  ];
+
+  return (
+    <section className="py-20 md:py-28 bg-white">
+      <div className="max-w-6xl mx-auto px-6">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-12"
+        >
+          <p className="section-label mb-3">Illustrated Pages</p>
+          <h2
+            className="font-display font-semibold text-foreground leading-tight mb-3"
+            style={{ fontSize: "clamp(1.75rem, 4vw, 2.75rem)" }}
+          >
+            Sketches from{" "}
+            <span className="text-primary italic">
+              The Wonderful Journey of Achiya
+            </span>
+          </h2>
+          <p className="font-body text-base text-muted-foreground mt-3 max-w-xl mx-auto">
+            Original illustrations from the children's book — pencil-sketch art
+            that brings Achiya's magical world to life.
+          </p>
+        </motion.div>
+
+        <div className="grid sm:grid-cols-3 gap-6 md:gap-8">
+          {sketches.map((sketch, i) => (
+            <motion.figure
+              key={sketch.src}
+              data-ocid={`achiya.item.${i + 1}`}
+              initial={{ opacity: 0, y: 28 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ duration: 0.55, delay: i * 0.1 }}
+              className="group flex flex-col items-center"
+            >
+              <div className="w-full overflow-hidden rounded-2xl border border-border/60 bg-gray-50 shadow-sm group-hover:shadow-md transition-shadow duration-300">
+                <img
+                  src={sketch.src}
+                  alt={sketch.alt}
+                  className="w-full object-contain mix-blend-multiply"
+                  style={{ aspectRatio: "3/4" }}
+                  loading="lazy"
+                />
+              </div>
+              <figcaption className="mt-3 font-ui text-sm text-muted-foreground text-center italic">
+                {sketch.caption}
+              </figcaption>
+            </motion.figure>
+          ))}
+        </div>
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+          className="text-center mt-10"
+        >
+          <a
+            href="https://www.rokomari.com/book/author/119963/dr-muhammad-sah-hafez-kobir"
+            target="_blank"
+            rel="noopener noreferrer"
+            data-ocid="achiya.primary_button"
+            className="inline-flex items-center gap-2 font-ui text-sm font-semibold text-primary border border-primary/30 bg-primary/5 hover:bg-primary/10 hover:border-primary/50 px-5 py-2.5 rounded-full transition-all duration-200"
+          >
+            <ExternalLink className="h-4 w-4" />
+            Get the Book on Rokomari
+          </a>
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
 // ─── Contact Section ──────────────────────────────────────────
 function ContactSection() {
   const [name, setName] = useState("");
@@ -1375,6 +1471,7 @@ export default function App() {
         <ResearchSection />
         <BooksSection />
         <QuotesSection />
+        <AchiyaSketchesSection />
         <ContactSection />
       </main>
       <Footer />

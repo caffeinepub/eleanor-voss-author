@@ -1102,6 +1102,33 @@ function AchiyaSketchesSection() {
 
 // ─── Audio Stories Section ────────────────────────────────────
 function AudioStoriesSection() {
+  const videos = [
+    {
+      id: "4RjVfVu0GsI",
+      title: "The Wonderful Journey of Achiya - Part 1",
+    },
+    {
+      id: "8sKnjQ6AV0s",
+      title: "Ghost Catcher Club - Audio Story",
+    },
+    {
+      id: "VgMB-YJbHWw",
+      title: "The Dialogues of Socrata and Plata",
+    },
+    {
+      id: "Hk9mHCsBOd8",
+      title: "Andy's Journey Into the Realm of Research",
+    },
+    {
+      id: "xvFZjo5PgG0",
+      title: "Kid Scientists Build Their Own Lab",
+    },
+    {
+      id: "dQw4w9WgXcQ",
+      title: "Science Education Series - Episode 1",
+    },
+  ];
+
   return (
     <section
       id="audio-stories"
@@ -1140,42 +1167,56 @@ function AudioStoriesSection() {
           </p>
         </motion.div>
 
-        {/* Featured Embedded Playlist */}
+        {/* Video thumbnail grid */}
         <motion.div
-          initial={{ opacity: 0, y: 28, scale: 0.98 }}
-          whileInView={{ opacity: 1, y: 0, scale: 1 }}
-          viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.7, delay: 0.1 }}
-          className="relative rounded-2xl overflow-hidden shadow-xl border border-border/40 bg-foreground mb-10"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-40px" }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+          className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-5 mb-10"
         >
-          {/* Decorative label */}
-          <div className="absolute top-3 left-3 z-10 flex items-center gap-1.5 bg-black/60 backdrop-blur-sm text-white px-3 py-1.5 rounded-full">
-            <SiYoutube className="h-3.5 w-3.5 text-red-400" />
-            <span className="font-ui text-xs font-semibold">
-              MSHK Audio Books
-            </span>
-          </div>
-          <div
-            style={{ position: "relative", paddingBottom: "56.25%", height: 0 }}
-          >
-            <iframe
-              src="https://www.youtube.com/embed?listType=user_uploads&list=UCo5u2oyH9GA5ynvAMNGc1Rw"
-              title="MSHK Audio Books – আশফীর বই"
-              style={{
-                position: "absolute",
-                top: 0,
-                left: 0,
-                width: "100%",
-                height: "100%",
-                border: 0,
-              }}
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            />
-          </div>
+          {videos.map((video, i) => (
+            <motion.a
+              key={video.id}
+              href={`https://www.youtube.com/watch?v=${video.id}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              data-ocid={`audio-stories.item.${i + 1}`}
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-20px" }}
+              transition={{ duration: 0.45, delay: (i % 3) * 0.07 }}
+              className="group block bg-white border border-border/60 rounded-xl overflow-hidden shadow-sm hover:shadow-md hover:border-primary/30 transition-all duration-200"
+            >
+              {/* Thumbnail */}
+              <div className="relative overflow-hidden aspect-video bg-gray-100">
+                <img
+                  src={`https://img.youtube.com/vi/${video.id}/hqdefault.jpg`}
+                  alt={video.title}
+                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                  loading="lazy"
+                />
+                {/* Play overlay */}
+                <div className="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/30 transition-colors duration-200">
+                  <div className="w-10 h-10 rounded-full bg-red-500 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-200">
+                    <SiYoutube className="h-5 w-5 text-white" />
+                  </div>
+                </div>
+              </div>
+              {/* Title */}
+              <div className="px-3 py-2.5">
+                <p className="font-ui text-xs font-semibold text-foreground leading-snug line-clamp-2 group-hover:text-primary transition-colors duration-200">
+                  {video.title}
+                </p>
+                <p className="font-ui text-xs text-muted-foreground mt-1">
+                  Watch on YouTube
+                </p>
+              </div>
+            </motion.a>
+          ))}
         </motion.div>
 
-        {/* Description + CTA */}
+        {/* CTA row — YouTube + Spotify */}
         <motion.div
           initial={{ opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -1185,23 +1226,35 @@ function AudioStoriesSection() {
         >
           <div className="text-center sm:text-left">
             <h3 className="font-ui text-base font-semibold text-foreground mb-1">
-              More stories on YouTube
+              More stories on YouTube &amp; Spotify
             </h3>
             <p className="font-body text-sm text-muted-foreground">
-              Subscribe to the channel and explore the full library of Bengali
-              audio stories and books.
+              Subscribe to the channel or listen on Spotify — explore the full
+              library of Bengali audio stories and books.
             </p>
           </div>
-          <a
-            href="https://www.youtube.com/@MSHKBOOKS/videos"
-            target="_blank"
-            rel="noopener noreferrer"
-            data-ocid="audio-stories.primary_button"
-            className="shrink-0 inline-flex items-center gap-2 font-ui text-sm font-semibold bg-red-500 hover:bg-red-600 text-white px-6 py-3 rounded-full transition-all duration-200 shadow-sm hover:shadow-md"
-          >
-            <SiYoutube className="h-4 w-4" />
-            Browse All Audio Stories
-          </a>
+          <div className="flex flex-col sm:flex-row gap-3 shrink-0">
+            <a
+              href="https://www.youtube.com/@MSHKBOOKS/videos"
+              target="_blank"
+              rel="noopener noreferrer"
+              data-ocid="audio-stories.primary_button"
+              className="inline-flex items-center gap-2 font-ui text-sm font-semibold bg-red-500 hover:bg-red-600 text-white px-5 py-2.5 rounded-full transition-all duration-200 shadow-sm hover:shadow-md whitespace-nowrap"
+            >
+              <SiYoutube className="h-4 w-4" />
+              Browse All Audio Stories
+            </a>
+            <a
+              href="https://open.spotify.com/show/0wYBdJ7RXpAZlcGoNjKrHq?si=f6430ba8dda742"
+              target="_blank"
+              rel="noopener noreferrer"
+              data-ocid="audio-stories.secondary_button"
+              className="inline-flex items-center gap-2 font-ui text-sm font-semibold bg-green-500 hover:bg-green-600 text-white px-5 py-2.5 rounded-full transition-all duration-200 shadow-sm hover:shadow-md whitespace-nowrap"
+            >
+              <SiSpotify className="h-4 w-4" />
+              Listen on Spotify
+            </a>
+          </div>
         </motion.div>
       </div>
     </section>

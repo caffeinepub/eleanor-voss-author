@@ -917,6 +917,77 @@ function BooksSection() {
   );
 }
 
+// ─── Upcoming Series Section ──────────────────────────────────
+function UpcomingSeriesSection() {
+  const books = [
+    {
+      title: "An Investigation of The Graduate Detectives",
+      cover: "/assets/uploads/1-English-3.jpg",
+      series: "The Graduate Detective Series #1",
+    },
+    {
+      title: "An Investigation of Antibiotic Mystery",
+      cover: "/assets/uploads/2-English-2.jpg",
+      series: "The Graduate Detective Series #2",
+    },
+    {
+      title: "Death of a Researcher",
+      cover: "/assets/uploads/3-English-1.jpg",
+      series: "The Graduate Detective Series #3",
+    },
+  ];
+
+  return (
+    <section id="upcoming-series" className="py-20 md:py-32 bg-background">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-14">
+          <span className="inline-block bg-amber-100 text-amber-700 text-sm font-semibold uppercase tracking-widest px-4 py-1 rounded-full mb-4">
+            Coming Soon
+          </span>
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+            Upcoming: The Graduate Detective Series
+          </h2>
+          <p className="text-muted-foreground max-w-xl mx-auto">
+            A thrilling fiction series by Dr. Mohammad Shah Hafez Kabir blending
+            science, mystery, and investigation.
+          </p>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
+          {books.map((book) => (
+            <div key={book.title} className="flex flex-col items-center group">
+              <div className="relative w-full max-w-[260px] rounded-xl overflow-hidden shadow-lg group-hover:shadow-2xl transition-shadow duration-300">
+                <img
+                  src={book.cover}
+                  alt={book.title}
+                  className="w-full object-cover aspect-[2/3] group-hover:scale-105 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
+                  <div className="p-4 text-white">
+                    <p className="text-xs font-semibold uppercase tracking-wider text-amber-300 mb-1">
+                      {book.series}
+                    </p>
+                    <p className="font-bold text-sm leading-snug">
+                      {book.title}
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div className="mt-4 text-center">
+                <p className="text-xs text-amber-600 font-semibold uppercase tracking-wider mb-1">
+                  {book.series}
+                </p>
+                <p className="font-semibold text-foreground text-sm leading-snug">
+                  {book.title}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 // ─── Quotes Section ───────────────────────────────────────────
 function QuotesSection() {
   const quotes = [
@@ -1594,6 +1665,7 @@ export default function App() {
         <HelpSection />
         <AboutSection />
         <BooksSection />
+        <UpcomingSeriesSection />
         <QuotesSection />
         <AchiyaSketchesSection />
         <AudioStoriesSection />

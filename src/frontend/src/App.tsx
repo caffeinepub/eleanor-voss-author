@@ -24,9 +24,9 @@ const NAV_LINKS = [
   { label: "Upcoming", href: "#upcoming" },
   { label: "Quotes", href: "#quotes" },
   { label: "Illustrations", href: "#illustrations" },
-  { label: "Research", href: "#research" },
   { label: "Listen", href: "#listen" },
-  { label: "Writing", href: "#writing" },
+  { label: "Read", href: "#writing" },
+  { label: "Research", href: "#research" },
   { label: "Contact", href: "#contact" },
 ];
 
@@ -128,11 +128,6 @@ const RESEARCH_LINKS = [
     label: "GUSTO A Research Group",
     url: "http://mshkabir.myfreesites.net",
     icon: FlaskConical,
-  },
-  {
-    label: "Biggan Barta",
-    url: "https://bigganbarta.org/author/mshkabir",
-    icon: BookOpen,
   },
   {
     label: "Google Scholar",
@@ -310,7 +305,7 @@ export default function App() {
                   className="text-lg text-muted-foreground leading-relaxed mb-8 max-w-xl"
                 >
                   Bridging the worlds of science, literature, and imagination.
-                  Author of over eight published works spanning science fiction,
+                  Author of ten published works spanning science fiction,
                   philosophy, children's education, and academic research.
                 </motion.p>
                 <motion.div variants={fadeUp} className="flex flex-wrap gap-3">
@@ -652,6 +647,211 @@ export default function App() {
           </div>
         </section>
 
+        {/* Audio Stories */}
+        <section id="listen" className="py-20 px-4 sm:px-6 lg:px-8">
+          <div className="max-w-3xl mx-auto text-center">
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={stagger}
+            >
+              <motion.div variants={fadeUp}>
+                <Headphones size={48} className="text-primary mx-auto mb-6" />
+                <h2 className="font-display text-3xl sm:text-4xl font-semibold mb-4">
+                  Audio Stories
+                </h2>
+                <p className="text-muted-foreground mb-10 max-w-lg mx-auto">
+                  Listen to Dr. Ashfy's captivating audio stories on your
+                  favourite platform.
+                </p>
+              </motion.div>
+              <motion.div
+                variants={fadeUp}
+                className="flex flex-wrap justify-center gap-8"
+              >
+                {/* YouTube */}
+                <a
+                  href="https://www.youtube.com/channel/UCo5u2oyH9GA5ynvAMNGc1Rw"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  data-ocid="listen.primary_button"
+                  className="flex flex-col items-center gap-3 group"
+                >
+                  <div className="w-32 h-32 flex items-center justify-center rounded-2xl bg-white shadow-lg group-hover:shadow-xl transition-all duration-200 group-hover:scale-105">
+                    <svg
+                      viewBox="0 0 90 63"
+                      width="80"
+                      height="56"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <title>YouTube</title>
+                      <path
+                        d="M88.1 9.8C87 5.8 84 2.7 80 1.6 73 0 45 0 45 0S17 0 10 1.6C6 2.7 3 5.8 1.9 9.8 0 16.8 0 31.5 0 31.5s0 14.7 1.9 21.7C3 57.2 6 60.3 10 61.4 17 63 45 63 45 63s28 0 35-1.6c4-1.1 7-4.2 8.1-8.2C90 46.2 90 31.5 90 31.5s0-14.7-1.9-21.7z"
+                        fill="#FF0000"
+                      />
+                      <path d="M36 45l23.4-13.5L36 18z" fill="#fff" />
+                    </svg>
+                  </div>
+                  <span className="text-sm font-medium text-muted-foreground group-hover:text-foreground transition-colors">
+                    YouTube
+                  </span>
+                </a>
+
+                {/* Spotify */}
+                <a
+                  href="https://open.spotify.com/show/0wYBdJ7RXpAZlcGoNjKrHq?si=f6430ba8dda742"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  data-ocid="listen.secondary_button"
+                  className="flex flex-col items-center gap-3 group"
+                >
+                  <div className="w-32 h-32 flex items-center justify-center rounded-2xl bg-white shadow-lg group-hover:shadow-xl transition-all duration-200 group-hover:scale-105">
+                    <svg
+                      viewBox="0 0 168 168"
+                      width="80"
+                      height="80"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <title>Spotify</title>
+                      <path
+                        d="M84 0C37.6 0 0 37.6 0 84s37.6 84 84 84 84-37.6 84-84S130.4 0 84 0zm38.6 121.1c-1.5 2.5-4.8 3.3-7.3 1.7-20-12.2-45.2-15-74.9-8.2-2.9.7-5.7-1.1-6.4-4-.7-2.9 1.1-5.7 4-6.4 32.5-7.4 60.4-4.2 82.9 9.5 2.5 1.5 3.3 4.8 1.7 7.4zm10.3-22.9c-1.9 3.1-6 4.1-9.1 2.2-22.9-14.1-57.8-18.2-84.9-9.9-3.5 1.1-7.2-.9-8.3-4.4-1.1-3.5.9-7.2 4.4-8.3 30.9-9.4 69.3-4.8 95.6 11.3 3.2 1.9 4.1 6 2.3 9.1zm.9-23.8c-27.5-16.3-72.9-17.8-99.2-9.9-4.2 1.3-8.6-1.1-9.9-5.3-1.3-4.2 1.1-8.6 5.3-9.9 30.2-9.1 80.4-7.4 112.1 11.4 3.8 2.3 5.1 7.2 2.8 11.1-2.2 3.8-7.2 5.1-11.1 2.6z"
+                        fill="#1DB954"
+                      />
+                    </svg>
+                  </div>
+                  <span className="text-sm font-medium text-muted-foreground group-hover:text-foreground transition-colors">
+                    Spotify
+                  </span>
+                </a>
+
+                {/* SoundCloud */}
+                <a
+                  href="https://soundcloud.com/user-203299441"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  data-ocid="listen.button"
+                  className="flex flex-col items-center gap-3 group"
+                >
+                  <div className="w-32 h-32 flex items-center justify-center rounded-2xl bg-white shadow-lg group-hover:shadow-xl transition-all duration-200 group-hover:scale-105">
+                    <svg
+                      viewBox="0 0 56 28"
+                      width="90"
+                      height="45"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <title>SoundCloud</title>
+                      <path
+                        d="M0 20.5c0 2.5 2 4.5 4.5 4.5s4.5-2 4.5-4.5V9.3c0-.7-.6-1.3-1.3-1.3s-1.3.6-1.3 1.3v11.2c0 1.1-.9 2-2 2s-2-.9-2-2V13c0-.7-.6-1.3-1.3-1.3S0 12.3 0 13v7.5zm8 0V9.3c0-.7-.6-1.3-1.3-1.3s-1.3.6-1.3 1.3v11.2c0 1.1-.9 2-2 2s-2-.9-2-2V13c0-.7-.6-1.3-1.3-1.3S0 12.3 0 13"
+                        fill="none"
+                      />
+                      <path
+                        d="M1.3 16.5c-.7 0-1.3.6-1.3 1.3v2.7C0 22.5 2 24.5 4.5 24.5S9 22.5 9 20.5V9.3C9 8.6 8.4 8 7.7 8S6.4 8.6 6.4 9.3v11.2c0 1.1-.9 2-2 2-1 0-1.8-.7-2-1.7v-2.9c0-.8-.5-1.4-1.1-1.4zM56 14c0-5.5-4.5-10-10-10-1.2 0-2.4.2-3.5.6C41.1 2.1 38.2 0 34.8 0c-4 0-7.3 3-7.8 6.8-.4-.1-.8-.2-1.2-.2-2.5 0-4.5 2-4.5 4.5v9.4c0 2.1 1.4 3.9 3.4 4.4.3.1.7.1 1.1.1H46c5.5 0 10-4.5 10-10z"
+                        fill="#FF5500"
+                      />
+                    </svg>
+                  </div>
+                  <span className="text-sm font-medium text-muted-foreground group-hover:text-foreground transition-colors">
+                    SoundCloud
+                  </span>
+                </a>
+              </motion.div>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* Read */}
+        <section
+          id="writing"
+          className="py-20 px-4 sm:px-6 lg:px-8 bg-muted/40"
+        >
+          <div className="max-w-3xl mx-auto">
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={stagger}
+            >
+              <motion.div variants={fadeUp} className="text-center mb-10">
+                <PenLine size={40} className="text-primary mx-auto mb-4" />
+                <h2 className="font-display text-3xl sm:text-4xl font-semibold mb-3">
+                  Read
+                </h2>
+                <p className="text-muted-foreground">
+                  Read Dr. Ashfy's stories and science writing online.
+                </p>
+              </motion.div>
+              <div className="space-y-4">
+                <motion.a
+                  variants={fadeUp}
+                  href="https://www.wattpad.com/1518822085-the-positronic-paradox-shadow-of-intention"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  data-ocid="writing.card"
+                  className="block"
+                >
+                  <Card className="p-8 hover:shadow-lg transition-all duration-300 border-2 hover:border-primary group">
+                    <div className="flex items-start gap-5">
+                      <div className="p-3 rounded-xl bg-primary/10 group-hover:bg-primary/20 transition-colors">
+                        <BookOpen size={32} className="text-primary" />
+                      </div>
+                      <div className="flex-1">
+                        <Badge variant="secondary" className="text-xs mb-2">
+                          Wattpad · Online Story
+                        </Badge>
+                        <h3 className="font-display text-xl font-semibold mb-2 group-hover:text-primary transition-colors">
+                          The Positronic Paradox: Shadow of Intention
+                        </h3>
+                        <p className="text-muted-foreground text-sm leading-relaxed">
+                          An immersive science fiction story exploring the
+                          shadow between artificial intelligence and human
+                          consciousness. Read it on Wattpad.
+                        </p>
+                      </div>
+                      <ExternalLink
+                        size={18}
+                        className="text-muted-foreground group-hover:text-primary transition-colors mt-1 shrink-0"
+                      />
+                    </div>
+                  </Card>
+                </motion.a>
+                <motion.a
+                  variants={fadeUp}
+                  href="https://bigganbarta.org/author/mshkabir"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  data-ocid="writing.card"
+                  className="block"
+                >
+                  <Card className="p-8 hover:shadow-lg transition-all duration-300 border-2 hover:border-primary group">
+                    <div className="flex items-start gap-5">
+                      <div className="p-3 rounded-xl bg-primary/10 group-hover:bg-primary/20 transition-colors">
+                        <PenLine size={32} className="text-primary" />
+                      </div>
+                      <div className="flex-1">
+                        <Badge variant="secondary" className="text-xs mb-2">
+                          Biggan Barta · Science Writing
+                        </Badge>
+                        <h3 className="font-display text-xl font-semibold mb-2 group-hover:text-primary transition-colors">
+                          Biggan Barta — Author Profile
+                        </h3>
+                        <p className="text-muted-foreground text-sm leading-relaxed">
+                          Read Dr. Ashfy's science communication articles on
+                          Biggan Barta, Bangladesh's popular science platform.
+                        </p>
+                      </div>
+                      <ExternalLink
+                        size={18}
+                        className="text-muted-foreground group-hover:text-primary transition-colors mt-1 shrink-0"
+                      />
+                    </div>
+                  </Card>
+                </motion.a>
+              </div>
+            </motion.div>
+          </div>
+        </section>
+
         {/* Research */}
         <section id="research" className="py-20 px-4 sm:px-6 lg:px-8">
           <div className="max-w-7xl mx-auto">
@@ -703,135 +903,6 @@ export default function App() {
                   );
                 })}
               </motion.div>
-            </motion.div>
-          </div>
-        </section>
-
-        {/* Audio Stories */}
-        <section id="listen" className="py-20 px-4 sm:px-6 lg:px-8 bg-muted/40">
-          <div className="max-w-3xl mx-auto text-center">
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={stagger}
-            >
-              <motion.div variants={fadeUp}>
-                <Headphones size={48} className="text-primary mx-auto mb-6" />
-                <h2 className="font-display text-3xl sm:text-4xl font-semibold mb-4">
-                  Audio Stories
-                </h2>
-                <p className="text-muted-foreground mb-10 max-w-lg mx-auto">
-                  Listen to Dr. Ashfy's captivating audio stories on your
-                  favourite platform.
-                </p>
-              </motion.div>
-              <motion.div
-                variants={fadeUp}
-                className="flex flex-wrap justify-center gap-4"
-              >
-                <Button
-                  asChild
-                  size="lg"
-                  className="bg-red-600 hover:bg-red-700 text-white"
-                  data-ocid="listen.primary_button"
-                >
-                  <a
-                    href="https://www.youtube.com/channel/UCo5u2oyH9GA5ynvAMNGc1Rw"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <ExternalLink size={16} className="mr-2" />
-                    Listen on YouTube
-                  </a>
-                </Button>
-                <Button
-                  asChild
-                  size="lg"
-                  className="bg-green-600 hover:bg-green-700 text-white"
-                  data-ocid="listen.secondary_button"
-                >
-                  <a
-                    href="https://open.spotify.com/show/0wYBdJ7RXpAZlcGoNjKrHq?si=f6430ba8dda742"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <ExternalLink size={16} className="mr-2" />
-                    Listen on Spotify
-                  </a>
-                </Button>
-                <Button
-                  asChild
-                  size="lg"
-                  variant="outline"
-                  className="border-orange-500 text-orange-600 hover:bg-orange-50"
-                  data-ocid="listen.button"
-                >
-                  <a
-                    href="https://soundcloud.com/user-203299441"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <ExternalLink size={16} className="mr-2" />
-                    Listen on SoundCloud
-                  </a>
-                </Button>
-              </motion.div>
-            </motion.div>
-          </div>
-        </section>
-
-        {/* Reading & Writing */}
-        <section id="writing" className="py-20 px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl mx-auto">
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={stagger}
-            >
-              <motion.div variants={fadeUp} className="text-center mb-10">
-                <PenLine size={40} className="text-primary mx-auto mb-4" />
-                <h2 className="font-display text-3xl sm:text-4xl font-semibold mb-3">
-                  Reading & Writing
-                </h2>
-                <p className="text-muted-foreground">
-                  Read Dr. Ashfy's ongoing stories on Wattpad.
-                </p>
-              </motion.div>
-              <motion.a
-                variants={fadeUp}
-                href="https://www.wattpad.com/1518822085-the-positronic-paradox-shadow-of-intention"
-                target="_blank"
-                rel="noopener noreferrer"
-                data-ocid="writing.card"
-                className="block"
-              >
-                <Card className="p-8 hover:shadow-lg transition-all duration-300 border-2 hover:border-primary group">
-                  <div className="flex items-start gap-5">
-                    <div className="p-3 rounded-xl bg-primary/10 group-hover:bg-primary/20 transition-colors">
-                      <BookOpen size={32} className="text-primary" />
-                    </div>
-                    <div className="flex-1">
-                      <Badge variant="secondary" className="text-xs mb-2">
-                        Wattpad · Online Story
-                      </Badge>
-                      <h3 className="font-display text-xl font-semibold mb-2 group-hover:text-primary transition-colors">
-                        The Positronic Paradox: Shadow of Intention
-                      </h3>
-                      <p className="text-muted-foreground text-sm leading-relaxed">
-                        An immersive science fiction story exploring the shadow
-                        between artificial intelligence and human consciousness.
-                        Read it on Wattpad.
-                      </p>
-                    </div>
-                    <ExternalLink
-                      size={18}
-                      className="text-muted-foreground group-hover:text-primary transition-colors mt-1 shrink-0"
-                    />
-                  </div>
-                </Card>
-              </motion.a>
             </motion.div>
           </div>
         </section>

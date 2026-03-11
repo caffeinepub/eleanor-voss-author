@@ -110,15 +110,15 @@ const UPCOMING_BOOKS = [
 
 const QUOTES = [
   {
-    text: "In the realm where dreams take flight,\nAchiya walks through endless light,\nEvery question opens a door,\nEvery answer reveals much more.",
+    text: "All the aquatic creatures trapped in the nets of pollution,\nThose children of Minamata Bay who were poisoned,\nDo you not see? It is humans who harm humans.",
     source: "The Wonderful Journey of Achiya",
   },
   {
-    text: "Science is not just a method, it is a way of seeing—\na lens through which the ordinary becomes extraordinary,\nand the impossible becomes the next discovery.",
+    text: "Even if you live for a hundred years, you still walk the path toward extinction.\nTo be born in such a time is a deep misfortune.\nYou wander through space with the whole world in your imagination,\nYet today, you stand helpless in the act of reproduction.",
     source: "The Wonderful Journey of Achiya",
   },
   {
-    text: "She reached out to the stars with curious hands,\nnot to hold them, but to understand—\nfor wisdom lies not in possession,\nbut in the endless pursuit of questions.",
+    text: "When Little Boy and Fat Man struck Hiroshima,\nthousands of children were playing peacefully in all parts of the world.\nIt was said that children of every nation would grow and play like this,\nyet some remained above the ground,\nwhile others were torn from the earth and vanished.",
     source: "The Wonderful Journey of Achiya",
   },
 ];
@@ -580,16 +580,18 @@ export default function App() {
               viewport={{ once: true }}
               variants={stagger}
             >
-              <motion.h2
-                variants={fadeUp}
-                className="font-display text-3xl sm:text-4xl font-semibold mb-12 text-center"
-              >
-                Quotes & Poems
-              </motion.h2>
+              <motion.div variants={fadeUp} className="text-center mb-12">
+                <h2 className="font-display text-3xl sm:text-4xl font-semibold mb-3">
+                  Quotes & Poems
+                </h2>
+                <p className="text-muted-foreground italic">
+                  From the children's book "The Wonderful Journey of Achiya"
+                </p>
+              </motion.div>
               <div className="space-y-8">
                 {QUOTES.map((quote, idx) => (
                   <motion.div
-                    key={quote.source}
+                    key={quote.text.slice(0, 20)}
                     variants={fadeUp}
                     data-ocid={`quotes.item.${idx + 1}`}
                   >

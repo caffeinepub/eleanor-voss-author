@@ -1,0 +1,59 @@
+@font-face {
+  font-family: "Fraunces";
+  src: url("/assets/fonts/Fraunces.woff2") format("woff2");
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "General Sans";
+  src: url("/assets/fonts/GeneralSans-Variable.woff2") format("woff2");
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 97 0.01 80;
+    --foreground: 22 0.03 260;
+    --card: 100 0 0;
+    --card-foreground: 22 0.03 260;
+    --popover: 100 0 0;
+    --popover-foreground: 22 0.03 260;
+    --primary: 35 0.12 50;
+    --primary-foreground: 98 0.01 80;
+    --secondary: 92 0.02 80;
+    --secondary-foreground: 22 0.03 260;
+    --muted: 94 0.01 80;
+    --muted-foreground: 55 0.03 260;
+    --accent: 65 0.14 145;
+    --accent-foreground: 22 0.03 260;
+    --destructive: 55 0.22 27;
+    --destructive-foreground: 98 0.01 80;
+    --border: 88 0.02 80;
+    --input: 88 0.02 80;
+    --ring: 35 0.12 50;
+    --radius: 0.5rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-display;
+  }
+}

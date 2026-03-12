@@ -118,7 +118,7 @@ const QUOTES = [
     source: "The Wonderful Journey of Achiya",
   },
   {
-    text: "When Little Boy and Fat Man struck Hiroshima,\nthousands of children were playing peacefully in all parts of the world.\nIt was said that children of every nation would grow and play like this,\nyet some remained above the ground,\nwhile others were torn from the earth and vanished.",
+    text: "When Little Boy and Fat Man struck Hiroshima and Nagasaki,\nthousands of children were playing peacefully in all parts of the world.\nIt was said that children of every nation would grow and play like this,\nyet some remained above the ground,\nwhile others were torn from the earth and vanished.",
     source: "The Wonderful Journey of Achiya",
   },
 ];
@@ -734,22 +734,13 @@ export default function App() {
                   className="flex flex-col items-center gap-3 group"
                 >
                   <div className="w-32 h-32 flex items-center justify-center rounded-2xl bg-white shadow-lg group-hover:shadow-xl transition-all duration-200 group-hover:scale-105">
-                    <svg
-                      viewBox="0 0 56 28"
-                      width="90"
-                      height="45"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <title>SoundCloud</title>
-                      <path
-                        d="M0 20.5c0 2.5 2 4.5 4.5 4.5s4.5-2 4.5-4.5V9.3c0-.7-.6-1.3-1.3-1.3s-1.3.6-1.3 1.3v11.2c0 1.1-.9 2-2 2s-2-.9-2-2V13c0-.7-.6-1.3-1.3-1.3S0 12.3 0 13v7.5zm8 0V9.3c0-.7-.6-1.3-1.3-1.3s-1.3.6-1.3 1.3v11.2c0 1.1-.9 2-2 2s-2-.9-2-2V13c0-.7-.6-1.3-1.3-1.3S0 12.3 0 13"
-                        fill="none"
-                      />
-                      <path
-                        d="M1.3 16.5c-.7 0-1.3.6-1.3 1.3v2.7C0 22.5 2 24.5 4.5 24.5S9 22.5 9 20.5V9.3C9 8.6 8.4 8 7.7 8S6.4 8.6 6.4 9.3v11.2c0 1.1-.9 2-2 2-1 0-1.8-.7-2-1.7v-2.9c0-.8-.5-1.4-1.1-1.4zM56 14c0-5.5-4.5-10-10-10-1.2 0-2.4.2-3.5.6C41.1 2.1 38.2 0 34.8 0c-4 0-7.3 3-7.8 6.8-.4-.1-.8-.2-1.2-.2-2.5 0-4.5 2-4.5 4.5v9.4c0 2.1 1.4 3.9 3.4 4.4.3.1.7.1 1.1.1H46c5.5 0 10-4.5 10-10z"
-                        fill="#FF5500"
-                      />
-                    </svg>
+                    <img
+                      src="/assets/uploads/images-1.png"
+                      alt="SoundCloud"
+                      width="100"
+                      height="100"
+                      className="object-contain"
+                    />
                   </div>
                   <span className="text-sm font-medium text-muted-foreground group-hover:text-foreground transition-colors">
                     SoundCloud

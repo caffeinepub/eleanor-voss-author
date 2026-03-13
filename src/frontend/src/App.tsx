@@ -30,7 +30,7 @@ const NAV_LINKS = [
   { label: "Contact", href: "#contact" },
 ];
 
-const BOOKS = [
+const BOOKS_ENGLISH = [
   {
     title: "The Positronic Paradox",
     genre: "Science Fiction",
@@ -87,6 +87,44 @@ const BOOKS = [
     cover: "/assets/uploads/Picture1mnk-1.jpg",
     description:
       "A collection of insightful reflections on science, life, and the pursuit of knowledge from the perspective of a researcher and storyteller.",
+  },
+];
+
+const BOOKS_BANGLA = [
+  {
+    title: "যদি গবেষণা করতে চাই",
+    genre: "Academic",
+    cover: "/assets/uploads/1-2024--5.jpg",
+    description:
+      "গবেষণার জগতে প্রবেশ করতে চাইলে কী করবেন — এই বইটি সেই পথ দেখায়। (2024)",
+  },
+  {
+    title: "বিজ্ঞান কি পুরোপুরি গবেষণাপত্রের ওপর নির্ভরশীল?",
+    genre: "Science",
+    cover: "/assets/uploads/3-2024--1.jpg",
+    description:
+      "বিজ্ঞান কি শুধুই গবেষণাপত্রের উপর নির্ভরশীল — এই প্রশ্নের গভীরে যাওয়ার চেষ্টা। (2024)",
+  },
+  {
+    title: "মহাজ্ঞানীর কেলেঙ্কারি উন্মোচন",
+    genre: "Science Thriller",
+    cover: "/assets/uploads/6-2025--3.jpg",
+    description:
+      "বিজ্ঞান থ্রিলার — একজন মহাজ্ঞানীর রহস্যময় কেলেঙ্কারি উদঘাটনের রোমাঞ্চকর কাহিনী। (2025)",
+  },
+  {
+    title: "খুদেরা বানালো গবেষণাগার",
+    genre: "Children's Science",
+    cover: "/assets/uploads/9-2026--2.jpeg",
+    description:
+      "ছোটদের জন্য বিজ্ঞানের মজাদার বই — খুদে বিজ্ঞানীরা কীভাবে নিজেরাই গবেষণাগার বানায়। (2026)",
+  },
+  {
+    title: "আছিয়ার আশ্চর্য ভ্রমণ",
+    genre: "Children's Fiction",
+    cover: "/assets/uploads/10-2026--4.jpeg",
+    description:
+      "আছিয়ার অদ্ভুত ও আশ্চর্যজনক ভ্রমণের কাহিনী — শিশুদের কল্পনাকে উড়িয়ে নিয়ে যাওয়া বই। (2026)",
   },
 ];
 
@@ -210,6 +248,68 @@ const fadeUp = {
 const stagger = {
   visible: { transition: { staggerChildren: 0.1 } },
 };
+
+function BookCard({
+  book,
+  idx,
+  language,
+}: {
+  book: { title: string; genre: string; cover: string; description: string };
+  idx: number;
+  language: "In English" | "In Bangla";
+}) {
+  return (
+    <motion.div variants={fadeUp} data-ocid={`books.item.${idx + 1}`}>
+      <Card className="h-full flex flex-col overflow-hidden hover:shadow-lg transition-shadow duration-300 group">
+        <div className="overflow-hidden aspect-[2/3] bg-muted">
+          <img
+            src={book.cover}
+            alt={book.title}
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+          />
+        </div>
+        <CardContent className="flex flex-col flex-1 p-4 gap-3">
+          <div>
+            <div className="flex gap-1.5 flex-wrap mb-2">
+              <Badge variant="secondary" className="text-xs">
+                {book.genre}
+              </Badge>
+              <Badge
+                className={`text-xs ${
+                  language === "In Bangla"
+                    ? "bg-emerald-100 text-emerald-800 border-emerald-200"
+                    : "bg-blue-100 text-blue-800 border-blue-200"
+                }`}
+                variant="outline"
+              >
+                {language}
+              </Badge>
+            </div>
+            <h3 className="font-display text-sm font-semibold leading-snug line-clamp-2">
+              {book.title}
+            </h3>
+          </div>
+          <p className="text-xs text-muted-foreground leading-relaxed line-clamp-3 flex-1">
+            {book.description}
+          </p>
+          <Button
+            asChild
+            size="sm"
+            className="w-full mt-auto bg-primary text-primary-foreground hover:opacity-90"
+          >
+            <a
+              href="https://www.rokomari.com/book/author/119963/dr-muhammad-sah-hafez-kobir"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Buy on Rokomari
+            </a>
+          </Button>
+        </CardContent>
+      </Card>
+    </motion.div>
+  );
+}
 
 export default function App() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -447,54 +547,51 @@ export default function App() {
                   and education.
                 </p>
               </motion.div>
-              <motion.div
-                variants={stagger}
-                className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6"
-              >
-                {BOOKS.map((book, idx) => (
-                  <motion.div
-                    key={book.title}
-                    variants={fadeUp}
-                    data-ocid={`books.item.${idx + 1}`}
-                  >
-                    <Card className="h-full flex flex-col overflow-hidden hover:shadow-lg transition-shadow duration-300 group">
-                      <div className="overflow-hidden aspect-[2/3] bg-muted">
-                        <img
-                          src={book.cover}
-                          alt={book.title}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                        />
-                      </div>
-                      <CardContent className="flex flex-col flex-1 p-4 gap-3">
-                        <div>
-                          <Badge variant="secondary" className="text-xs mb-2">
-                            {book.genre}
-                          </Badge>
-                          <h3 className="font-display text-sm font-semibold leading-snug line-clamp-2">
-                            {book.title}
-                          </h3>
-                        </div>
-                        <p className="text-xs text-muted-foreground leading-relaxed line-clamp-3 flex-1">
-                          {book.description}
-                        </p>
-                        <Button
-                          asChild
-                          size="sm"
-                          className="w-full mt-auto bg-primary text-primary-foreground hover:opacity-90"
-                          data-ocid={`books.item.${idx + 1}`}
-                        >
-                          <a
-                            href="https://www.rokomari.com/book/author/119963/dr-muhammad-sah-hafez-kobir"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            Buy on Rokomari
-                          </a>
-                        </Button>
-                      </CardContent>
-                    </Card>
-                  </motion.div>
-                ))}
+
+              {/* In English */}
+              <motion.div variants={fadeUp} className="mb-10">
+                <div className="flex items-center gap-3 mb-6">
+                  <h3 className="font-display text-xl font-semibold text-muted-foreground">
+                    In English
+                  </h3>
+                  <div className="flex-1 h-px bg-border" />
+                </div>
+                <motion.div
+                  variants={stagger}
+                  className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6"
+                >
+                  {BOOKS_ENGLISH.map((book, idx) => (
+                    <BookCard
+                      key={book.title}
+                      book={book}
+                      idx={idx}
+                      language="In English"
+                    />
+                  ))}
+                </motion.div>
+              </motion.div>
+
+              {/* In Bangla */}
+              <motion.div variants={fadeUp}>
+                <div className="flex items-center gap-3 mb-6">
+                  <h3 className="font-display text-xl font-semibold text-muted-foreground">
+                    In Bangla
+                  </h3>
+                  <div className="flex-1 h-px bg-border" />
+                </div>
+                <motion.div
+                  variants={stagger}
+                  className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6"
+                >
+                  {BOOKS_BANGLA.map((book, idx) => (
+                    <BookCard
+                      key={book.title}
+                      book={book}
+                      idx={BOOKS_ENGLISH.length + idx}
+                      language="In Bangla"
+                    />
+                  ))}
+                </motion.div>
               </motion.div>
             </motion.div>
           </div>
